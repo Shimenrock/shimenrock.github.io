@@ -1,0 +1,31 @@
+---
+title: "About me"
+layout: splash
+permalink: /about-me/
+header:
+  overlay_color: "#000"
+  overlay_filter: "0.5"
+  overlay_image: /assets/images/unsplash-image-1.jpg
+  actions:
+    - label: "Linkedin"
+      url: "https://www.linkedin.com/in/yan-bai-73324b181/"
+excerpt: "Bacon ipsum dolor sit amet salami ham hock ham, hamburger corned beef short ribs kielbasa biltong t-bone drumstick tri-tip tail sirloin pork chop."
+intro: 
+  - excerpt: 'Nullam suscipit et nam, tellus velit pellentesque at malesuada, enim eaque. Quis nulla, netus tempor in diam gravida tincidunt, *proin faucibus* voluptate felis id sollicitudin. '
+feature_row:
+  - image_path: assets/images/unsplash-gallery-image-1-th.jpg
+    alt: "ORACLE OCP"
+    title: "Oracle OCP"
+    excerpt: "Oracle Database 10g Administrator Certified Professional - OCP."
+  - image_path: /assets/images/unsplash-gallery-image-2-th.jpg
+    alt: "COMMVAULT"
+    title: "Comvault Solution Architect"
+    excerpt: "Commvault v11 Solution Architect Certification - CVSA."
+  - image_path: /assets/images/unsplash-gallery-image-3-th.jpg
+    title: "Placeholder 3"
+    excerpt: "This is some sample content that goes here with **Markdown** formatting."
+---
+
+{% include feature_row id="intro" type="center" %}
+
+{% include feature_row %}

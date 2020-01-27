@@ -5,6 +5,7 @@ categories: GIT
 permalink: git-command.html
 summary: "GIT日常命令整理"
 tags: [GIT]
+toc: true
 ---
 
 - 进入工作区

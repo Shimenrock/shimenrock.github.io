@@ -1,5 +1,5 @@
 ---
-title: "Layout: Sidebar with Navigation List"
+title: "布局: 侧边栏设置导航清单"
 excerpt: "A post with a sidebar navigation list."
 author_profile: false
 sidebar:

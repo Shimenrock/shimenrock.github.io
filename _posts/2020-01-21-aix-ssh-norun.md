@@ -5,6 +5,7 @@ categories: AIX
 permalink: aix-ssh-norun.html
 summary: "AIX系统ssh服务不能启动,解决方法"
 tags: [AIX]
+toc: true
 ---
 
 ### aix系统ssh服务不能启动

@@ -22,8 +22,6 @@ foo:
 main:
   - title: "About me"
     url: https://www.linkedin.com/in/yan-bai-73324b181/
-  - title: "Articles"
-    url: /Articles/
   - title: "Categories"
     url: /categories/
   - title: "Tags"

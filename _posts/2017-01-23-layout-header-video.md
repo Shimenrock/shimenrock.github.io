@@ -1,5 +1,5 @@
 ---
-title: "Layout: Header Video"
+title: "布局: 配置标头视频"
 header:
   video:
     id: XsxDH4HcOWA

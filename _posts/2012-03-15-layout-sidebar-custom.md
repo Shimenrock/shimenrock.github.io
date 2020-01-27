@@ -1,5 +1,5 @@
 ---
-title: "Layout: Sidebar Custom"
+title: "布局: 自定义侧边栏"
 excerpt: "A post with custom sidebar content."
 author_profile: false
 sidebar:
