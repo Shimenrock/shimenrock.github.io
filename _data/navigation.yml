@@ -24,13 +24,12 @@ main:
     url: https://www.linkedin.com/in/yan-bai-73324b181/
   - title: "Categories"
     url: /categories/
-  - title: "Tags"
-    url: /tags/
-  - title: "Study notes"
-    url: /docs/quick-start-guide/
+  - title: "K8S notes"
+    url: /k8s/study_notes/
   - title: "ELK notes"
     url: /elk/study_notes/
-
+  - title: "Study notes"
+    url: /docs/quick-start-guide/
 
 # elk links
 elk:
@@ -42,8 +41,26 @@ elk:
           url: /elk/kibana-7-setup/
         - title: "Logstash 7 Setup"
           url: /elk/logstash-7-setup/
-        
-          
+        - title: "Concept"
+          url: /elk/concept/  
+        - title: "Cerebro-setup"
+          url: /elk/cerebro-setup/               
+
+# elk links
+k8s:
+  - title: Getting Started
+    children:
+        - title: "Install Esxi 6"
+          url: /k8s/install-esxi-6/
+        - title: "Install Macos"
+          url: /k8s/install-macos-esxi/
+        - title: "kubernetes Concept"
+          url: /k8s/kubernetes-concepts/
+        - title: "Kubernetes Setup"
+          url: /k8s/kubernetes-setup/
+        - title: "Pod kubectl"
+          url: /k8s/kubernetes-kubectl/
+           
 # documentation links
 docs:
   - title: Getting Started

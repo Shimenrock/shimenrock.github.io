@@ -1,5 +1,5 @@
 ---
-title: "Layout: Header Image Overlay"
+title: "布局: 配置标题图片"
 header:
   overlay_image: /assets/images/unsplash-image-1.jpg
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"

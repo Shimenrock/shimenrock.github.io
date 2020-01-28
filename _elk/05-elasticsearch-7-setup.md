@@ -223,7 +223,15 @@ Exception in thread "main" java.net.UnknownHostException: artifacts.elastic.co
    报错403 访问域名不通
 ```
 
-### 6. 相关资源
+### 6.运行多个实例
+```
+bin/elasticsearch -E node.name=node1 -E cluster.name=geektime -E path.data=node1_data -d
+
+su -elk
+./elasticsearch -E node.name=cka-2 -E cluster.name=my-app -E path.data=cka-2_data -E http.port=9400
+```
+
+### 7. 相关资源
 博客 [https://www.elastic.co/cn/blog/](https://www.elastic.co/cn/blog/)
 
 文档 [https://www.elastic.co/guide/index.html](https://www.elastic.co/guide/index.html)

@@ -214,6 +214,9 @@ collections:
   elk:
     output: true
     permalink: /:collection/:path/
+  k8s:
+    output: true
+    permalink: /:collection/:path/    
   recipes:
     output: true
     permalink: /:collection/:path/
@@ -335,6 +338,18 @@ defaults:
       comments: false
       sidebar:
         nav: "elk"
+  # _k8s
+  - scope:
+      path: ""
+      type: k8s
+    values:
+      layout: single
+      read_time: false
+      author_profile: false
+      share: false
+      comments: false
+      sidebar:
+        nav: "k8s"
   # _recipes
   - scope:
       path: ""
