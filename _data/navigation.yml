@@ -60,6 +60,10 @@ k8s:
           url: /k8s/kubernetes-setup/
         - title: "Pod kubectl"
           url: /k8s/kubernetes-kubectl/
+  - title: Self Test
+    children:
+        - title: "Self Test"
+          url: /k8s/kubernetes-self-test/
            
 # documentation links
 docs:

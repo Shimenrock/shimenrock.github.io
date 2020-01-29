@@ -1,5 +1,5 @@
 ---
-title: "Edge Case: Many Categories"
+title: "边缘案例: 配置多分类"
 categories:
   - aciform
   - antiquarianism
@@ -16,7 +16,7 @@ categories:
   - enphagy
 tags:
   - categories
-  - edge case
+  - 边缘案例
 ---
 
 This post has many categories.

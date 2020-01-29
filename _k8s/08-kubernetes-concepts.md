@@ -3,6 +3,7 @@ title: "Kubernetes Concepts"
 permalink: /k8s/kubernetes-concepts/
 excerpt: "Kubernetes Concepts"
 last_modified_at: 2020-01-28T21:36:11-04:00
+categories: kubernetes
 redirect_from:
   - /theme-setup/
 toc: true

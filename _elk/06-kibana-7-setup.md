@@ -3,6 +3,7 @@ title: "Kibana7 安装与配置"
 permalink: /elk/kibana-7-setup/
 excerpt: "How to quickly install and setup Kibana 7."
 last_modified_at: 2020-01-26T21:36:11-04:00
+categories: elk
 redirect_from:
   - /theme-setup/
 toc: true

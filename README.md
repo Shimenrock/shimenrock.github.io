@@ -1,3 +1,3 @@
-<div style='display: none'>
-bundle exec jekyll serve
+<div style='display:none'>
+*[^_^]:bundle exec jekyll serve
 </div>

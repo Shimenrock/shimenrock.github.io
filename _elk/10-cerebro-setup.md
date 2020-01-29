@@ -3,6 +3,7 @@ title: "Cerebro 安装与配置"
 permalink: /elk/cerebro-setup/
 excerpt: "How to install and setup Cerebro."
 last_modified_at: 2020-01-26T21:36:11-04:00
+categories: elk
 redirect_from:
   - /theme-setup/
 toc: true

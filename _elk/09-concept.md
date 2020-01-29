@@ -3,6 +3,7 @@ title: "基本概念"
 permalink: /elk/concept/
 excerpt: "Elasticsearch Concept"
 last_modified_at: 2020-01-26T21:36:11-04:00
+categories: elk
 redirect_from:
   - /theme-setup/
 toc: true

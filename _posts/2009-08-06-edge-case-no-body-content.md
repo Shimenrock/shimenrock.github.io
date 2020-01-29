@@ -1,9 +1,9 @@
 ---
-title: "Edge Case: No Body Content"
+title: "边缘案例: 不配置 Body Content"
 categories:
-  - Edge Case
+  - 边缘案例
 tags:
   - content
-  - edge case
+  - 边缘案例
   - layout
 ---

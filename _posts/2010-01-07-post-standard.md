@@ -1,5 +1,5 @@
 ---
-title: "Post: Standard"
+title: "发布: 标准格式"
 excerpt_separator: "<!--more-->"
 categories:
   - Post Formats
