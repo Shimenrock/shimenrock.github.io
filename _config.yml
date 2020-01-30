@@ -217,6 +217,9 @@ collections:
   k8s:
     output: true
     permalink: /:collection/:path/    
+  invest:
+    output: true
+    permalink: /:collection/:path/    
   recipes:
     output: true
     permalink: /:collection/:path/
@@ -350,6 +353,18 @@ defaults:
       comments: false
       sidebar:
         nav: "k8s"
+  # _invest
+  - scope:
+      path: ""
+      type: invest
+    values:
+      layout: single
+      read_time: false
+      author_profile: false
+      share: false
+      comments: false
+      sidebar:
+        nav: "invest"
   # _recipes
   - scope:
       path: ""

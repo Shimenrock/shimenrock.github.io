@@ -1,10 +1,16 @@
 ---
-title: "Post: Video (YouTube)"
+title: "发布: 嵌入视频"
 categories:
   - Post Formats
 tags:
   - Post Formats
 ---
+
+微薄视频
+
+<iframe width="640" height="360" src="http://t.cn/A6PcEEvi" frameborder="0" allowfullscreen></iframe>
+
+
 
 YouTube video embed below.
 

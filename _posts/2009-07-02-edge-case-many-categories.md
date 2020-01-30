@@ -1,22 +1,14 @@
 ---
 title: "边缘案例: 配置多分类"
 categories:
-  - aciform
-  - antiquarianism
-  - arrangement
-  - asmodeus
-  - broder
-  - buying
-  - championship
-  - chastening
-  - disinclination
-  - disinfection
-  - dispatch
-  - echappee
-  - enphagy
+  - GIT
+  - AIX
+  - ceph
+  - atom
+  - oracle
 tags:
   - categories
-  - 边缘案例
+  - edgecase
 ---
 
 This post has many categories.

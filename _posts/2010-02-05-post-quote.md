@@ -1,5 +1,5 @@
 ---
-title: "Post: Quote"
+title: "发布: 引用"
 categories:
   - Post Formats
 tags:

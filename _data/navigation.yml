@@ -28,7 +28,9 @@ main:
     url: /k8s/study_notes/
   - title: "ELK notes"
     url: /elk/study_notes/
-  - title: "Study notes"
+  - title: "Invest"
+    url: /invest/study_notes/
+  - title: "Theme Docs"
     url: /docs/quick-start-guide/
 
 # elk links
@@ -46,7 +48,7 @@ elk:
         - title: "Cerebro-setup"
           url: /elk/cerebro-setup/               
 
-# elk links
+# k8s links
 k8s:
   - title: Getting Started
     children:
@@ -58,13 +60,26 @@ k8s:
           url: /k8s/kubernetes-concepts/
         - title: "Kubernetes Setup"
           url: /k8s/kubernetes-setup/
+  - title: Pod
+    children:
         - title: "Pod kubectl"
           url: /k8s/kubernetes-kubectl/
+        - title: "Pod YAML"
+          url: /k8s/kubernetes-yaml/
+        - title: "Pod Label"
+          url: /k8s/kubernetes-lable/
   - title: Self Test
     children:
         - title: "Self Test"
           url: /k8s/kubernetes-self-test/
-           
+       
+# invest links
+invest:
+  - title: "基金"
+    children:
+        - title: "指数基金"
+          url: /invest/index-fund/
+            
 # documentation links
 docs:
   - title: Getting Started

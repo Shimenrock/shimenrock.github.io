@@ -1,5 +1,5 @@
 ---
-title: "Post: Notice"
+title: "发布: Notice"
 categories:
   - Post Formats
 tags:

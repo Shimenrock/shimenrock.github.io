@@ -1,5 +1,5 @@
 ---
-title: "Post: Header Image with OpenGraph Override"
+title: "发布: 标题图像"
 header:
   image: /assets/images/page-header-image.png
   og_image: /assets/images/page-header-og-image.png
