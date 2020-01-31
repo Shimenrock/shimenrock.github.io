@@ -1,6 +1,6 @@
 # Theme Settings
 # theme                    : "minimal-mistakes-jekyll"
-minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "air" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "en-US"                # 网页语言
@@ -103,17 +103,16 @@ author:
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      # url: mailto:your.name@email.com
+      url: mailto:qiuzhizhu@qq.com
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      # url: "https://your-website.com"
+      url: "https://https://shimenrock.github.io/"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       # url: "https://twitter.com/"
-      url: "https://twitter.com/YanBai2012"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
-      # url: "https://facebook.com/"
+      url: "https://www.facebook.com/qiuzhizhu"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Shimenrock"
@@ -128,11 +127,10 @@ footer:
   links:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/YanBai2012"
       # url:
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
-      # url:
+      url: "https://www.facebook.com/qiuzhizhu"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Shimenrock"

@@ -11,4 +11,6 @@ toc: true
 
 # 基金
 
+## [货币基金](/invest/monetary-fund/)
 ## [指数基金](/invest/index-fund/)
+## [大数据指数基金](/invest/big-data-index-fund/)

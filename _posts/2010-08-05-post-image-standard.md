@@ -1,5 +1,5 @@
 ---
-title: "Post: Image (Standard)"
+title: "发布: 标准图像"
 categories:
   - Post Formats
 tags:

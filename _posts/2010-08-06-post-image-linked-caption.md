@@ -1,5 +1,5 @@
 ---
-title: "Post: Image (Linked with Caption)"
+title: "发布: 图片 (标题超链接)"
 categories:
   - Post Formats
 tags:

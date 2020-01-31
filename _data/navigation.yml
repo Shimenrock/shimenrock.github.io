@@ -77,9 +77,13 @@ k8s:
 invest:
   - title: "基金"
     children:
+        - title: "货币基金"
+          url: /invest/monetary-fund/
         - title: "指数基金"
           url: /invest/index-fund/
-            
+        - title: "大数据指数基金"
+          url: /invest/big-data-index-fund/
+          
 # documentation links
 docs:
   - title: Getting Started
