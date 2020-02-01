@@ -24,6 +24,8 @@ main:
     url: https://www.linkedin.com/in/yan-bai-73324b181/
   - title: "Categories"
     url: /categories/
+  - title: "DBA"
+    url: /dba/study_notes/
   - title: "K8S notes"
     url: /k8s/study_notes/
   - title: "ELK notes"
@@ -83,7 +85,15 @@ invest:
           url: /invest/index-fund/
         - title: "大数据指数基金"
           url: /invest/big-data-index-fund/
-          
+
+# dba links
+dba:
+  - title: "MYSQL"
+    children:
+        - title: "mysql 基础概念"
+          url: /dba/mysql-concept/
+
+
 # documentation links
 docs:
   - title: Getting Started

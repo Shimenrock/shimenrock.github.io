@@ -1,5 +1,5 @@
 ---
-title: "发布: 图片 (标题超链接)"
+title: "发布: 图片 (超链接标题)"
 categories:
   - Post Formats
 tags:

@@ -1,5 +1,5 @@
 ---
-title: "Post: Gallery"
+title: "发布: 画廊"
 categories:
   - Post Formats
 tags:

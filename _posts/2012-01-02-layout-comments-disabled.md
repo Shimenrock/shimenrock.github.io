@@ -1,9 +1,8 @@
 ---
-title: "Layout: Comments Disabled"
+title: "布局: 关闭评论"
 comments: false
 categories:
   - Layout
-  - Uncategorized
 tags:
   - comments
   - layout

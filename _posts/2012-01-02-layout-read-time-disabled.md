@@ -1,5 +1,7 @@
 ---
-title: "Layout: Read Time Disabled"
+title: "布局: Read Time Disabled"
+categories:
+  - Layout
 read_time: false
 tags:
   - read time

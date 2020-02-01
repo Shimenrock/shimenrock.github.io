@@ -1,9 +1,8 @@
 ---
-title: "Layout: Comments Enabled"
+title: "布局: 启动评论"
 comments: true
 categories:
   - Layout
-  - Uncategorized
 tags:
   - comments
   - layout
