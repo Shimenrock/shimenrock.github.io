@@ -77,13 +77,14 @@ k8s:
        
 # invest links
 invest:
-  - title: "基金"
+  - title: "一、如何制定理财计划"
+  - title: "二、理财产品学习笔记"
     children:
-        - title: "货币基金"
+        - title: "2.1 货币基金"
           url: /invest/monetary-fund/
-        - title: "指数基金"
+        - title: "2.2 指数基金"
           url: /invest/index-fund/
-        - title: "大数据指数基金"
+        - title: "2.3 大数据指数基金"
           url: /invest/big-data-index-fund/
 
 # dba links
