@@ -14,3 +14,21 @@ https://analytics.google.com/analytics
 
   gtag('config', 'UA-135881568-2');
 </script>
+
+百度统计
+https://tongji.baidu.com/
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?88306ba463468a987545572a90663e54";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+阿里云推广
+https://promotion.aliyun.com/
+https://www.aliyun.com/minisite/goods?userCode=uzqvd29a
+腾讯云推广
+https://console.cloud.tencent.com/spread/income

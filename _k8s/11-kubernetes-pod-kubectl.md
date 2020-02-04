@@ -14,467 +14,118 @@ toc: true
 
 [Kubernetes 中文社区教程](https://www.kubernetes.org.cn/course)
 
-# kubectl 命令查看帮助
+# 1.kubectl 命令查看帮助
  
 ```
-    # kubectl
-    kubectl controls the Kubernetes cluster manager.
-
-     Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
-
-    Basic Commands (Beginner):
-      create         Create a resource from a file or from stdin.
-      expose         使用 replication controller, service, deployment 或者 pod 并暴露它作为一个 新的 Kubernetes Service
-      run            在集群中运行一个指定的镜像
-      set            为 objects 设置一个指定的特征
-
-    Basic Commands (Intermediate):
-      explain        查看资源的文档
-      get            显示一个或更多 resources
-      edit           在服务器上编辑一个资源
-      delete         Delete resources by filenames, stdin, resources and names, or by resources and label selector
-
-    Deploy Commands:
-      rollout        Manage the rollout of a resource
-      scale          Set a new size for a Deployment, ReplicaSet or Replication Controller
-      autoscale      自动调整一个 Deployment, ReplicaSet, 或者 ReplicationController 的副本数量
-
-    Cluster Management Commands:
-      certificate    修改 certificate 资源.
-      cluster-info   显示集群信息
-      top            Display Resource (CPU/Memory/Storage) usage.
-      cordon         标记 node 为 unschedulable
-      uncordon       标记 node 为 schedulable
-      drain          Drain node in preparation for maintenance
-      taint          更新一个或者多个 node 上的 taints
-
-    Troubleshooting and Debugging Commands:
-      describe       显示一个指定 resource 或者 group 的 resources 详情
-      logs           输出容器在 pod 中的日志
-      attach         Attach 到一个运行中的 container
-      exec           在一个 container 中执行一个命令
-      port-forward   Forward one or more local ports to a pod
-      proxy          运行一个 proxy 到 Kubernetes API server
-      cp             复制 files 和 directories 到 containers 和从容器中复制 files 和 directories.
-      auth           Inspect authorization
-
-    Advanced Commands:
-      diff           Diff live version against would-be applied version
-      apply          通过文件名或标准输入流(stdin)对资源进行配置
-      patch          使用 strategic merge patch 更新一个资源的 field(s)
-      replace        通过 filename 或者 stdin替换一个资源
-      wait           Experimental: Wait for a specific condition on one or many resources.
-      convert        在不同的 API versions 转换配置文件
-      kustomize      Build a kustomization target from a directory or a remote url.
-
-    Settings Commands:
-      label          更新在这个资源上的 labels
-      annotate       更新一个资源的注解
-      completion     Output shell completion code for the specified shell (bash or zsh)
-
-    Other Commands:
-      api-resources  Print the supported API resources on the server
-      api-versions   Print the supported API versions on the server, in the form of "group/version"
-      config         修改 kubeconfig 文件
-      plugin         Provides utilities for interacting with plugins.
-      version        输出 client 和 server 的版本信息
-
-    Usage:
-      kubectl [flags] [options]
-
-    Use "kubectl <command> --help" for more information about a given command.
-    Use "kubectl options" for a list of global command-line options (applies to all commands).
+# kubectl
 ```
 
-# kubectl 查看节点详情
+# 2.kubectl 查看节点详情
 ```
-    # kubectl describe node k8s-node1-206
-    Name:               k8s-node1-206
-    Roles:              <none>
-    Labels:             beta.kubernetes.io/arch=amd64
-                        beta.kubernetes.io/os=linux
-                        kubernetes.io/arch=amd64
-                        kubernetes.io/hostname=k8s-node1-206
-                        kubernetes.io/os=linux
-    Annotations:        flannel.alpha.coreos.com/backend-data: {"VtepMAC":"32:9c:aa:25:ca:bc"}
-                        flannel.alpha.coreos.com/backend-type: vxlan
-                        flannel.alpha.coreos.com/kube-subnet-manager: true
-                        flannel.alpha.coreos.com/public-ip: 192.168.11.206
-                        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
-                        node.alpha.kubernetes.io/ttl: 0
-                        volumes.kubernetes.io/controller-managed-attach-detach: true
-    CreationTimestamp:  Mon, 16 Dec 2019 13:48:44 +0800
-    Taints:             node.kubernetes.io/unreachable:NoSchedule
-    Unschedulable:      false
-    Lease:
-      HolderIdentity:  k8s-node1-206
-      AcquireTime:     <unset>
-      RenewTime:       Mon, 16 Dec 2019 23:58:45 +0800
-    Conditions:
-      Type             Status    LastHeartbeatTime                 LastTransitionTime                Reason              Message
-      ----             ------    -----------------                 ------------------                ------              -------
-      MemoryPressure   Unknown   Mon, 16 Dec 2019 23:56:40 +0800   Tue, 17 Dec 2019 09:25:31 +0800   NodeStatusUnknown   Kubelet stopped posting node status.
-      DiskPressure     Unknown   Mon, 16 Dec 2019 23:56:40 +0800   Tue, 17 Dec 2019 09:25:31 +0800   NodeStatusUnknown   Kubelet stopped posting node status.
-      PIDPressure      Unknown   Mon, 16 Dec 2019 23:56:40 +0800   Tue, 17 Dec 2019 09:25:31 +0800   NodeStatusUnknown   Kubelet stopped posting node status.
-      Ready            Unknown   Mon, 16 Dec 2019 23:56:40 +0800   Tue, 17 Dec 2019 09:25:31 +0800   NodeStatusUnknown   Kubelet stopped posting node status.
-    Addresses:
-      InternalIP:  192.168.11.206
-      Hostname:    k8s-node1-206
-    Capacity:
-      cpu:                2
-      ephemeral-storage:  13706Mi
-      hugepages-1Gi:      0
-      hugepages-2Mi:      0
-      memory:             3880732Ki
-      pods:               110
-    Allocatable:
-      cpu:                2
-      ephemeral-storage:  12934604369
-      hugepages-1Gi:      0
-      hugepages-2Mi:      0
-      memory:             3778332Ki
-      pods:               110
-    System Info:
-      Machine ID:                 24b72eab25494798a3387d8badc2cf72
-      System UUID:                08064D56-CC48-3239-DC66-737A734B6481
-      Boot ID:                    f8c3aaa7-604a-453e-a9a3-321ad58c4dfe
-      Kernel Version:             3.10.0-957.el7.x86_64
-      OS Image:                   CentOS Linux 7 (Core)
-      Operating System:           linux
-      Architecture:               amd64
-      Container Runtime Version:  docker://19.3.5
-      Kubelet Version:            v1.17.0
-      Kube-Proxy Version:         v1.17.0
-    PodCIDR:                      10.244.1.0/24
-    PodCIDRs:                     10.244.1.0/24
-    Non-terminated Pods:          (2 in total)
-      Namespace                   Name                           CPU Requests  CPU Limits  Memory Requests  Memory Limits  AGE
-      ---------                   ----                           ------------  ----------  ---------------  -------------  ---
-      kube-system                 kube-flannel-ds-amd64-94nmx    100m (5%)     100m (5%)   50Mi (1%)        50Mi (1%)      20h
-      kube-system                 kube-proxy-gqk4h               0 (0%)        0 (0%)      0 (0%)           0 (0%)         20h
-    Allocated resources:
-      (Total limits may be over 100 percent, i.e., overcommitted.)
-      Resource           Requests   Limits
-      --------           --------   ------
-      cpu                100m (5%)  100m (5%)
-      memory             50Mi (1%)  50Mi (1%)
-      ephemeral-storage  0 (0%)     0 (0%)
-    Events:              <none>
+# kubectl get nodes
+# kubectl describe node k8s-node1-206
 ```
 
-# kubectl 查看版本
+# 3.kubectl 查看版本
+
 ```
-    # kubectl version
-    Client Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.0", GitCommit:"70132b0f130acc0bed193d9ba59dd186f0e634cf", GitTreeState:"clean", BuildDate:"2019-12-07T21:20:10Z", GoVersion:"go1.13.4", Compiler:"gc", Platform:"linux/amd64"}
-    Server Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.0", GitCommit:"70132b0f130acc0bed193d9ba59dd186f0e634cf", GitTreeState:"clean", BuildDate:"2019-12-07T21:12:17Z", GoVersion:"go1.13.4", Compiler:"gc", Platform:"linux/amd64"}
+# kubectl version
+
 ```
 
-# kubectl 查看集群信息
-```
-    # kubectl cluster-info
-    Kubernetes master is running at https://192.168.11.205:6443
-    KubeDNS is running at https://192.168.11.205:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+# 4.kubectl 查看集群信息
 
-    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+```
+# kubectl cluster-info
 ```
 
-# kubectl 运行pod
+# 5.kubectl 运行pod
 
 **注：pod的IP属于cni0**
 
-## kubectl run 查看帮助
+## 5.1.kubectl run 查看帮助
 ```
-    # kubectl run --help
-    Create and run a particular image, possibly replicated.
-
-     Creates a deployment or job to manage the created container(s).
-
-    Examples:
-      # Start a single instance of nginx.
-      kubectl run nginx --image=nginx
-
-      # Start a single instance of hazelcast and let the container expose port 5701 .
-      kubectl run hazelcast --image=hazelcast --port=5701
-
-      # Start a single instance of hazelcast and set environment variables "DNS_DOMAIN=cluster" and "POD_NAMESPACE=default" in the container.
-      kubectl run hazelcast --image=hazelcast --env="DNS_DOMAIN=cluster" --env="POD_NAMESPACE=default"
-
-      # Start a single instance of hazelcast and set labels "app=hazelcast" and "env=prod" in the container.
-      kubectl run hazelcast --image=hazelcast --labels="app=hazelcast,env=prod"
-
-      # Start a replicated instance of nginx.
-      kubectl run nginx --image=nginx --replicas=5
-
-      # Dry run. Print the corresponding API objects without creating them.
-      kubectl run nginx --image=nginx --dry-run
-
-      # Start a single instance of nginx, but overload the spec of the deployment with a partial set of values parsed from JSON.
-      kubectl run nginx --image=nginx --overrides='{ "apiVersion": "v1", "spec": { ... } }'
-
-      # Start a pod of busybox and keep it in the foreground, don't restart it if it exits.
-      kubectl run -i -t busybox --image=busybox --restart=Never
-
-      # Start the nginx container using the default command, but use custom arguments (arg1 .. argN) for that command.
-      kubectl run nginx --image=nginx -- <arg1> <arg2> ... <argN>
-
-      # Start the nginx container using a different command and custom arguments.
-      kubectl run nginx --image=nginx --command -- <cmd> <arg1> ... <argN>
-
-      # Start the perl container to compute π to 2000 places and print it out.
-      kubectl run pi --image=perl --restart=OnFailure -- perl -Mbignum=bpi -wle 'print bpi(2000)'
-
-      # Start the cron job to compute π to 2000 places and print it out every 5 minutes.
-      kubectl run pi --schedule="0/5 * * * ?" --image=perl --restart=OnFailure -- perl -Mbignum=bpi -wle 'print bpi(2000)'
-
-    Options:
-          --allow-missing-template-keys=true: If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
-          --attach=false: If true, wait for the Pod to start running, and then attach to the Pod as if 'kubectl attach ...' were called.  Default false, unless '-i/--stdin' is set, in which case the default is true. With '--restart=Never' the exit code of the container process is returned.
-          --cascade=true: If true, cascade the deletion of the resources managed by this resource (e.g. Pods created by a ReplicationController).  Default true.
-          --command=false: If true and extra arguments are present, use them as the 'command' field in the container, rather than the 'args' field which is the default.
-          --dry-run=false: If true, only print the object that would be sent, without sending it.
-          --env=[]: Environment variables to set in the container
-          --expose=false: If true, a public, external service is created for the container(s) which are run
-      -f, --filename=[]: to use to replace the resource.
-          --force=false: Only used when grace-period=0. If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation.
-          --generator='': 使用 API generator 的名字, 在 http://kubernetes.io/docs/user-guide/kubectl-conventions/#generators 查看列表.
-          --grace-period=-1: Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. Set to 1 for immediate shutdown. Can only be set to 0 when --force is true (force deletion).
-          --hostport=-1: The host port mapping for the container port. To demonstrate a single-machine container.
-          --image='': 指定容器要运行的镜像.
-          --image-pull-policy='': 容器的镜像拉取策略. 如果为空, 这个值将不会 被 client 指定且使用 server 端的默认值
-      -k, --kustomize='': Process a kustomization directory. This flag can't be used together with -f or -R.
-      -l, --labels='': Comma separated labels to apply to the pod(s). Will override previous values.
-          --leave-stdin-open=false: If the pod is started in interactive mode or with stdin, leave stdin open after the first attach completes. By default, stdin will be closed after the first attach completes.
-          --limits='': The resource requirement limits for this container.  For example, 'cpu=200m,memory=512Mi'.  Note that server side components may assign limits depending on the server configuration, such as limit ranges.
-      -o, --output='': Output format. One of: json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-file.
-          --overrides='': An inline JSON override for the generated object. If this is non-empty, it is used to override the generated object. Requires that the object supply a valid apiVersion field.
-          --pod-running-timeout=1m0s: The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
-          --port='': The port that this container exposes.  If --expose is true, this is also the port used by the service that is created.
-          --quiet=false: If true, suppress prompt messages.
-          --record=false: Record current kubectl command in the resource annotation. If set to false, do not record the command. If set to true, record the command. If not set, default to updating the existing annotation value only if one already exists.
-      -R, --recursive=false: Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
-      -r, --replicas=1: Number of replicas to create for this container. Default is 1.
-          --requests='': 资源为 container 请求 requests . 例如, 'cpu=100m,memory=256Mi'. 注意服务端组件也许会赋予 requests, 这决定于服务器端配置, 比如 limit ranges.
-          --restart='Always': 这个 Pod 的 restart policy.  Legal values [Always, OnFailure, Never]. 如果设置为 'Always' 一个 deployment 被创建, 如果设置为 ’OnFailure' 一个 job 被创建, 如果设置为 'Never', 一个普通的 pod 被创建. 对于后面两个 --replicas 必须为 1.  默认 'Always', 为 CronJobs 设置为 `Never`.
-          --rm=false: If true, delete resources created in this command for attached containers.
-          --save-config=false: If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
-          --schedule='': A schedule in the Cron format the job should be run with.
-          --service-generator='service/v2': 使用 gnerator 的名称创建一个 service.  只有在 --expose 为 true 的时候使用
-          --service-overrides='': An inline JSON override for the generated service object. If this is non-empty, it is used to override the generated object. Requires that the object supply a valid apiVersion field.  Only used if --expose is true.
-          --serviceaccount='': Service account to set in the pod spec
-      -i, --stdin=false: Keep stdin open on the container(s) in the pod, even if nothing is attached.
-          --template='': Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
-          --timeout=0s: The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
-      -t, --tty=false: Allocated a TTY for each container in the pod.
-          --wait=false: If true, wait for resources to be gone before returning. This waits for finalizers.
-
-    Usage:
-      kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [--command] -- [COMMAND] [args...] [options]
-
-    Use "kubectl options" for a list of global command-line options (applies to all commands).
-```
-##  kubectl 运行一个pod
-```
-    # kubectl run nginx-deploy --image=nginx:1.14-alpine --port=80 --replicas=1 --dry-run=true  干跑模式，并没有运行
-    kubectl run --generator=deployment/apps.v1 is DEPRECATED and will be removed in a future version. Use kubectl run --generator=run-pod/v1 or kubectl create instead.
-    deployment.apps/nginx-deploy created (dry run)
-
-    # kubectl run nginx-deploy --image=nginx:1.14-alpine --port=80 --replicas=1
-    kubectl run --generator=deployment/apps.v1 is DEPRECATED and will be removed in a future version. Use kubectl run --generator=run-pod/v1 or kubectl create instead.
-    deployment.apps/nginx-deploy created
-
-    # kubectl get pods
-    NAME                            READY   STATUS    RESTARTS   AGE
-    nginx-deploy-66ff98548d-xfsd9   1/1     Running   0          10m
-
-    # kubectl get deployment
-    NAME           READY   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deploy   1/1     1            1           11m
-
-    # kubectl get deployment -o wide
-    NAME           READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS     IMAGES              SELECTOR
-    nginx-deploy   1/1     1            1
-
-            11m   nginx-deploy   nginx:1.14-alpine   run=nginx-deploy
-
-    # kubectl get pods -o wide
-    NAME                            READY   STATUS    RESTARTS   AGE   IP           NODE            NOMINATED NODE   READINESS GATES
-    nginx-deploy-66ff98548d-xfsd9   1/1     Running   0          11m   10.244.1.2   k8s-node1-206   <none>           <none>
-
-    # curl 10.244.1.2
+# kubectl run --help
 ```
 
-# kubectl删除pod
+## 5.2.kubectl 运行一个pod
+```
+# kubectl run nginx-deploy --image=nginx:1.14-alpine --port=80 --replicas=1 --dry-run=true  干跑模式，并没有运行
+
+# kubectl run nginx-deploy --image=nginx:1.14-alpine --port=80 --replicas=1
+
+# kubectl get pods
+
+# kubectl get deployment
+
+# kubectl get deployment -o wide
+
+# kubectl get pods -o wide
+
+# curl 10.244.1.2
+```
+
+## 5.3.kubectl删除pod
+
+```
+# kubectl get pod
+
+# kubectl delete pods nginx-deploy-66ff98548d-xfsd9
+
+# kubectl get pod
+
+# kubectl get pod -o wide
+
+正确删除
+# kubectl get deployment
+
+# kubectl delete deployment nginx-deploy
+```
 
 **自动重建pod，但pod的IP发生变化**
-```
-    # kubectl get pod
-    NAME                            READY   STATUS    RESTARTS   AGE
-    nginx-deploy-66ff98548d-xfsd9   1/1     Running   0          18m
-    # kubectl delete pods nginx-deploy-66ff98548d-xfsd9
-    pod "nginx-deploy-66ff98548d-xfsd9" deleted
-    # kubectl get pod
-    NAME                            READY   STATUS              RESTARTS   AGE
-    nginx-deploy-66ff98548d-v57lq   0/1     ContainerCreating   0          9s
-    # kubectl get pod -o wide
-    NAME                            READY   STATUS    RESTARTS   AGE   IP           NODE            NOMINATED NODE   READINESS GATES
-    nginx-deploy-66ff98548d-v57lq   1/1     Running   0          17s   10.244.2.2   k8s-node2-207   <none>           <none>
-```
 
-# kubectl 创建service服务
+## 5.4.kubectl 创建service服务
 
 **给pod一个固定端点，创建service服务，生成IP依然为集群内部IP，解析依靠CoreDNS**
 ```
-    # kubectl expose --help
-    Expose a resource as a new Kubernetes service.
+# kubectl expose --help
 
-     Looks up a deployment, service, replica set, replication controller or pod by name and uses the selector for that
-    resource as the selector for a new service on the specified port. A deployment or replica set will be exposed as a
-    service only if its selector is convertible to a selector that service supports, i.e. when the selector contains only
-    the matchLabels component. Note that if no port is specified via --port and the exposed resource has multiple ports, all
-    will be re-used by the new service. Also if no labels are specified, the new service will re-use the labels from the
-    resource it exposes.
+# kubectl expose deployment nginx-deploy --port=80 --target-port=80 --protocol=TCP
 
-     Possible resources include (case insensitive):
+# kubectl get svc
 
-     pod (po), service (svc), replicationcontroller (rc), deployment (deploy), replicaset (rs)
-
-    Examples:
-      # Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000.
-      kubectl expose rc nginx --port=80 --target-port=8000
-
-      # Create a service for a replication controller identified by type and name specified in "nginx-controller.yaml",
-    which serves on port 80 and connects to the containers on port 8000.
-      kubectl expose -f nginx-controller.yaml --port=80 --target-port=8000
-
-      # Create a service for a pod valid-pod, which serves on port 444 with the name "frontend"
-      kubectl expose pod valid-pod --port=444 --name=frontend
-
-      # Create a second service based on the above service, exposing the container port 8443 as port 443 with the name
-    "nginx-https"
-      kubectl expose service nginx --port=443 --target-port=8443 --name=nginx-https
-
-      # Create a service for a replicated streaming application on port 4100 balancing UDP traffic and named 'video-stream'.
-      kubectl expose rc streamer --port=4100 --protocol=UDP --name=video-stream
-
-      # Create a service for a replicated nginx using replica set, which serves on port 80 and connects to the containers on
-    port 8000.
-      kubectl expose rs nginx --port=80 --target-port=8000
-
-      # Create a service for an nginx deployment, which serves on port 80 and connects to the containers on port 8000.
-      kubectl expose deployment nginx --port=80 --target-port=8000
-
-    Options:
-          --allow-missing-template-keys=true: If true, ignore any errors in templates when a field or map key is missing in
-    the template. Only applies to golang and jsonpath output formats.
-          --cluster-ip='': ClusterIP to be assigned to the service. Leave empty to auto-allocate, or set to 'None' to create
-    a headless service.
-          --dry-run=false: If true, only print the object that would be sent, without sending it.
-          --external-ip='': Additional external IP address (not managed by Kubernetes) to accept for the service. If this IP
-    is routed to a node, the service can be accessed by this IP in addition to its generated service IP.
-      -f, --filename=[]: Filename, directory, or URL to files identifying the resource to expose a service
-          --generator='service/v2': 使用 generator 的名称. 这里有 2 个 generators: 'service/v1' 和 'service/v2'.
-    为一个不同地方是服务端口在 v1 的情况下叫 'default', 如果在 v2 中没有指定名称.
-    默认的名称是 'service/v2'.
-      -k, --kustomize='': Process the kustomization directory. This flag can't be used together with -f or -R.
-      -l, --labels='': Labels to apply to the service created by this call.
-          --load-balancer-ip='': IP to assign to the LoadBalancer. If empty, an ephemeral IP will be created and used
-    (cloud-provider specific).
-          --name='': 名称为最新创建的对象.
-      -o, --output='': Output format. One of:
-    json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-file.
-          --overrides='': An inline JSON override for the generated object. If this is non-empty, it is used to override the
-    generated object. Requires that the object supply a valid apiVersion field.
-          --port='': 服务的端口应该被指定. 如果没有指定, 从被创建的资源中复制
-          --protocol='': 创建 service 的时候伴随着一个网络协议被创建. 默认是 'TCP'.
-          --record=false: Record current kubectl command in the resource annotation. If set to false, do not record the
-    command. If set to true, record the command. If not set, default to updating the existing annotation value only if one
-    already exists.
-      -R, --recursive=false: Process the directory used in -f, --filename recursively. Useful when you want to manage
-    related manifests organized within the same directory.
-          --save-config=false: If true, the configuration of current object will be saved in its annotation. Otherwise, the
-    annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
-          --selector='': A label selector to use for this service. Only equality-based selector requirements are supported.
-    If empty (the default) infer the selector from the replication controller or replica set.)
-          --session-affinity='': If non-empty, set the session affinity for the service to this; legal values: 'None',
-    'ClientIP'
-          --target-port='': Name or number for the port on the container that the service should direct traffic to.
-    Optional.
-          --template='': Template string or path to template file to use when -o=go-template, -o=go-template-file. The
-    template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
-          --type='': Type for this service: ClusterIP, NodePort, LoadBalancer, or ExternalName. Default is 'ClusterIP'.
-
-    Usage:
-      kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP|SCTP] [--target-port=number-or-name]
-    [--name=name] [--external-ip=external-ip-of-service] [--type=type] [options]
-
-    Use "kubectl options" for a list of global command-line options (applies to all commands).
+# kubectl get service
 ```
+## 5.5.DNS解析
 ```
-    # kubectl expose deployment nginx-deploy --port=80 --target-port=80 --protocol=TCP
-    service/nginx-deploy exposed
-    # kubectl get svc
-    NAME           TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-    kubernetes     ClusterIP   10.96.0.1      <none>        443/TCP   21h
-    nginx-deploy   ClusterIP   10.96.218.77   <none>        80/TCP    21s
-    # kubectl get service
-    NAME           TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-    kubernetes     ClusterIP   10.96.0.1      <none>        443/TCP   21h
-    nginx-deploy   ClusterIP   10.96.218.77   <none>        80/TCP    24s
-```
-```
-    # yum install bind-utils -y
-    # kubectl get svc -n kube-system
-    NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE
-    kube-dns   ClusterIP   10.96.0.10   <none>        53/UDP,53/TCP,9153/TCP   21h
-    # kubectl run client --image=busybox --replicas=1 -it --restart=Never     创建pod客户端，进入pod
-    If you don't see a command prompt, try pressing enter.
-    / #
-    / # cat /etc/resolv.conf
-    nameserver 10.96.0.10
-    search default.svc.cluster.local svc.cluster.local cluster.local
-    options ndots:5
-    / # nslookup nginx-deploy
-    Server:         10.96.0.10
-    Address:        10.96.0.10:53
+# yum install bind-utils -y
 
-    ** server can't find nginx-deploy.default.svc.cluster.local: NXDOMAIN
+# kubectl get svc -n kube-system
+创建pod客户端，进入pod
+# kubectl run client --image=busybox --replicas=1 -it --restart=Never     
+If you don't see a command prompt, try pressing enter.
+/ #
+/ # cat /etc/resolv.conf
+nameserver 10.96.0.10
+search default.svc.cluster.local svc.cluster.local cluster.local
+options ndots:5
+/ # nslookup nginx-deploy
+Server:         10.96.0.10
+Address:        10.96.0.10:53
 
-    *** Can't find nginx-deploy.svc.cluster.local: No answer
-    *** Can't find nginx-deploy.cluster.local: No answer
-    *** Can't find nginx-deploy.default.svc.cluster.local: No answer
-    *** Can't find nginx-deploy.svc.cluster.local: No answer
-    *** Can't find nginx-deploy.cluster.local: No answer
-    / # wget nginx-deploy
-    Connecting to nginx-deploy (10.96.218.77:80)
-    saving to 'index.html'
-    index.html           100% |*****************************************************************************************************|   612  0:00:00 ETA
-    'index.html' saved
-    / #  wget -O - -q http://nginx-deploy:80
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <title>Welcome to nginx!</title>
-    <style>
-        body {
-            width: 35em;
-            margin: 0 auto;
-            font-family: Tahoma, Verdana, Arial, sans-serif;
-        }
-    </style>
-    </head>
-    <body>
-    <h1>Welcome to nginx!</h1>
-    <p>If you see this page, the nginx web server is successfully installed and
-    working. Further configuration is required.</p>
+** server can't find nginx-deploy.default.svc.cluster.local: NXDOMAIN
 
-    <p>For online documentation and support please refer to
-    <a href="http://nginx.org/">nginx.org</a>.<br/>
-    Commercial support is available at
-    <a href="http://nginx.com/">nginx.com</a>.</p>
-
-    <p><em>Thank you for using nginx.</em></p>
-    </body>
-    </html>
+*** Can't find nginx-deploy.svc.cluster.local: No answer
+*** Can't find nginx-deploy.cluster.local: No answer
+*** Can't find nginx-deploy.default.svc.cluster.local: No answer
+*** Can't find nginx-deploy.svc.cluster.local: No answer
+*** Can't find nginx-deploy.cluster.local: No answer
+/ # wget nginx-deploy
+Connecting to nginx-deploy (10.96.218.77:80)
+saving to 'index.html'
+index.html           100% |*****************************************************************************************************|   612  0:00:00 ETA
+'index.html' saved
+/ #  wget -O - -q http://nginx-deploy:80
 ```
 ```
     # dig -t A nginx-deploy.default.svc.cluster.local @10.96.0.10    在主机上可以解析

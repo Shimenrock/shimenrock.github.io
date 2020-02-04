@@ -303,3 +303,31 @@ insert into T values(100,1,'aa'),(200,2,'bb'),(300,3,'cc'),(500,5,'ee'),(600,6,'
     - 控制并发度
     - 中间件控制
     - 一行改成逻辑上的多行来减少锁冲突。
+
+
+<!--8课笔记，日期：2月3日-->
+
+# 7.1.事务隔离
+
+**事务到底是隔离的还是不隔离的?**
+
+默认autocommit=1
+
+begin/start transaction 命令并不是一个事务的起点，在执行它们之后第一个操作InnoDB表的语句，事务才真正启动。
+
+马上启动一个事务： start transaction with consistent snapshot
+```
+mysql> CREATE TABLE 't' (
+  'id' int(11) NOT NULL,
+  'k' int(11) DEFAULT NULL,
+  PRIMARY KEY ('id')
+) ENGINE=InnoDB;
+insert into t(id,k) values(1,1),(2,2)
+```
+## MySQL两个视图
+- 一个是view，一个用查询语句定义的虚拟表，在调用的时候执行查询语句并生成结果。(create view....)
+- 一个事InnoDB在实现MVCC时用到的一致性读视图，即consistent read view,用于支持RC和RR隔离级别的实现
+  - RC Read Committed 读提交
+  - RR Repeatable Read 可重复读
+
+

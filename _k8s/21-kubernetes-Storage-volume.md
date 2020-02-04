@@ -1,18 +1,16 @@
 ---
 title: "Kubernetes Storage"
 permalink: /k8s/kubernetes-storage/
-excerpt: "Kubernetes lable"
-last_modified_at: 2020-01-30T21:36:11-04:00
+excerpt: "Kubernetes Storage"
+last_modified_at: 2020-02-03T21:36:11-04:00
 categories: kubernetes
 redirect_from:
   - /theme-setup/
 toc: true
 ---
-<!--12课笔记 1小时20分钟-->
+<!--12课笔记-->
 
-**基础架构容器：pause**{: .notice}
-
-# k8s之上可用存储卷
+# 一、k8s之上可用存储卷
   - emptyDir
     - 临时、缓存、空目录
   - hostPath
@@ -28,22 +26,25 @@ toc: true
     - 亚马逊EBS 弹性块存储
     - Azure Disk
 
- **查看支持的存储**
+**基础架构容器pause**{: .notice--info}
+
+## 1.1.查看支持的存储
 ```
 # kubectl explain pods.spec.volumes
 ```
 
-**根据性能指标定义存储类**
+## 1.2.根据性能指标定义存储类
 - Gold Storage Class
 - Silver Storage Class
 - Bronze Storage Class
   
-PVC动态供给
+## 1.3.emptyDir
 
 ```
 # kubectl explain pods.spec.volumes.emptyDir
 # kubectl explain pods.spec.containers.volumeMounts
 ```
+
 **pod-vol-demo.yaml**
 ```yaml
 apiVersion: V1
