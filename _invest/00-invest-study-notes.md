@@ -1,7 +1,7 @@
 ---
-title: "理财学习笔记"
+title: "如何制定理财计划"
 permalink: /invest/study_notes/
-excerpt: "理财学习笔记"
+excerpt: "如何制定理财计划"
 last_modified_at: 2020-01-30T21:36:11-04:00
 categories: invest
 redirect_from:
@@ -9,7 +9,7 @@ redirect_from:
 toc: true
 ---
 
-# 一、如何指定理财计划
+# 一、如何制定理财计划
 
 ## 第一步 明确理财终极目标
 
