@@ -9,6 +9,8 @@ redirect_from:
 toc: true
 ---
 
+<img src="{{ site.url }}{{ site.baseurl }}/assets/images/unsplash-image-2.jpg" alt="">
+
 # 一、如何制定理财计划
 
 ## 第一步 明确理财终极目标
