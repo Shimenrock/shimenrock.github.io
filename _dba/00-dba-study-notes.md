@@ -9,6 +9,7 @@ redirect_from:
 toc: true
 ---
 
-# MYSQL
+# 1.MYSQL
 
-## [MYSQL 基础概念](/dba/mysql-concept/)
+## [1.1.MYSQL 基础概念](/dba/mysql-concept/)
+## [1.2.MYSQL 应用基础](/dba/mysql-base/)
