@@ -272,7 +272,7 @@ socket = /tmp/mysql.sock
 port = 3306
 user = mysql
 basedir = /usr/local/mysql
-datadir = /mydata/data/    //指定总目录 
+datadir = /mydata/data/ 
 
 socket = /tmp/mysql.sock
 pid-file = /mydata/data/mysql.pid
@@ -284,15 +284,11 @@ init_connect='SET NAMES utf8mb4'
 innodb_log_file_size = 256M
 innodb_file_format = barracuda
 innodb_strict_mode = 0
-# 让每一个表数据库都是一个文件，方便管理
 innodb_file_per_table = on
-# 忽略名字的反向解析，加快速度
 skip-name-resolve = on
 
-#服务器ID，集群必填配置，区分机器编号，每台机器不同
 server_id = 1
 
-#开启二进制日志，行级记录，同步写入磁盘
 log_bin = /mydata/data/mysql_binlog/mysql-bin
 binlog_format = row
 sync_binlog = 1

@@ -197,12 +197,62 @@ spec:
       path: /data/volumes
       server: stor01.magedu.com
 ```
+PVC如何定义
+kubectl explain pvc
+卷的pvc如何定义
+kubectl explain pods.spec.volumes.persistentVolumeClaim  
 
 
+NFS
+mkdir v{1,2,3,4,5}
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv001
+  labels:
+    name: pv001
+spec:
+  nfs:
+    path: /data/volumes/v1
+    server: stor01.magedu.com
+  accessModes: ["ReadWriteMany","ReadWriteOnce"]
+  capacity:
+    storage: 2Gi
 
 
+kubectl apply -f pv-demo.yaml
+
+kubectl get pv
 
 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mypvc
+  namespace: default
+spec:
+  accessModes: ["ReadWriteMany"]
+  resources:
+    requests:
+      storage: 6Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-vol-pvc
+  namespace: default
+spec:
+  containers:
+  - name: myapp
+    image: ikubernetes/myapp:v1
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: html
+    persistentVolumeClaim:
+      claimName: mypvc
 
 
 ===============================================

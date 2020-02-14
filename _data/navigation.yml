@@ -106,8 +106,8 @@ invest:
 dba:
   - title: "1.MYSQL"
     children:
-        - title: "1.1.Mysql 基础概念"
-          url: /dba/mysql-concept/
+        - title: "1.1.Mysql 应用基础"
+          url: /dba/mysql-base/
         - title: "1.2.Mysql 应用基础"
           url: /dba/mysql-base/
 

@@ -1,59 +1,17 @@
 ---
-title: "MYSQL 应用基础"
-permalink: /dba/mysql-base/
-excerpt: "MYSQL 应用基础"
-last_modified_at: 2020-02-01T21:36:11-04:00
+title: "Mariadb5.5.67 二级制安装"
+permalink: /dba/mariadb-setup/
+excerpt: "Mariadb5.5.67 二级制安装"
+last_modified_at: 2020-02-012T21:36:11-04:00
 categories: mysql
 redirect_from:
   - /theme-setup/
 toc: true
 ---
-<!--马哥22课笔记，日期：2月2日-->
-<!--马哥23课笔记，日期：2月5日-->
-# 1.关系型数据库
 
-**关系模型：二维关系 row,column**
+# 1.安装Mariadb
 
-**关系数据库有六种范式，范式越高数据库冗余更小**
-- 第一范式基本要求：每一列都是不可分割的原子数据项，即无重复的域，非关系型数据库则无此要求。**行的要求**
-- 第二范式首先满足第一范式，每个实例或记录可以被唯一区分，即不能有重复的行。**列的要求**
-- 第三范式必须满足第二范式，一个关系中不包含已在其他关系已包含的非主关键字信息。多张表不能存储相同的非主键字段。**表与表之间的关系**
-- 一般关系型数据库满足到第三范式，第五范式过于完美，太理想化，完美本身就是不完美。
-
-**因为要满足以上范式，关系型数据库经过拆表后，查询时又需要合表，导致影响性能，这是范式要求的必然结果**
-{: .notice}
-
-Relational RDBMS:
-- MYSQL
-  - MYSQL
-  - MariaDB
-  - Percona-Server
-- PostgreSQL:pgsql --> EnterpriseDB
-- Oracle
-- MSSQL
-
-# 2.Mariadb
-
-[www.mariadb.com](https://mariadb.com/)  企业版
-[www.mariadb.org](https://mariadb.org/)  社区版
-
-- 分支1：10.5.12
-- 分支2：5.5.67
-
-MariaDB特性：
-- 插件式存储引擎
-- 存储引擎也称为表类型
-- 支持更多的存储引擎
-  - MyISAM 老，不支持事务 --> Aria
-  - InnoDB 支持事务、锁等 --> XtraDB
-- 诸多扩展和新特性
-- 提供较多的测试组件
-- true open source
-- 支持多数据库存在，oracle只支持一个库，mysql每一个数据库只是一个目录而已
-
-# 3.安装Mariadb
-
-## 3.1.安装方法
+## 1.1.安装方法
 - 源代码：编译安装
 - 二进制格式程序包：展开至特定路径，并经过简单配置后即可使用
 - 程序包管理管理程序包：
@@ -63,13 +21,13 @@ MariaDB特性：
   - deb
 - CentOS 7直接安装，CentOS 6额外安装
 
-### 3.1.1.创建用户
+### 1.1.1.创建用户
 ```
 # groupadd -r -g 306 mysql
 # useradd -r -g 306 -u 306 mysql
 ```
 
-### 3.1.2.准备数据目录
+### 1.1.2.准备数据目录
 
 **数据应该放在btrfs格式文件系统上，centos6放到lvm2文件系统上，支持快照**
 ```
@@ -172,7 +130,7 @@ realtime =none                   extsz=4096   blocks=0, rtextents=0
 # chown mysql:mysql data
 ```
 
-### 3.1.3.下载
+### 1.1.3.下载
 
 ```
 # rpm -e mysql-server            #检查是否安装
@@ -187,7 +145,7 @@ realtime =none                   extsz=4096   blocks=0, rtextents=0
 # chown -R root:mysql ./*
 ```
 
-### 3.1.4.安装mariadb
+### 1.1.4.安装mariadb
 
 ```
 [root@mysql220 mysql]# scripts/mysql_install_db --help
@@ -250,7 +208,7 @@ mysqld          0:关    1:关    2:开    3:开    4:开    5:开    6:关
 # export PATH=$PATH:/usr/local/mysql/bin
 ```
 
-### 3.1.5.配置mariadb
+### 1.1.5.配置mariadb
 
 **准备配置文件**
 - 配置格式: 类ini格式，为各程序均提供通过单个配置文件提供配置信息:[prog_name]
@@ -282,7 +240,7 @@ root     10906     1  0 17:12 pts/1    00:00:00 /bin/sh /usr/local/mysql/bin/mys
 mysql    11299 10906  0 17:12 pts/1    00:00:00 /usr/local/mysql/bin/mysqld --basedir=/usr/local/mysql --datadir=/mydata/data --plugin-dir=/usr/local/mysql/lib/plugin --user=mysql --log-error=/var/log/mariadb/mariadb.log --pid-file=/mydata/data/mysql220.pid --socket=/tmp/mysql.sock --port=3306
 ```
 
-### 3.1.5.mariadb程序组成
+### 1.1.6.mariadb程序组成
 
 - 客户端
   - mysql CLI交互式客户端程序
@@ -298,7 +256,7 @@ mysql    11299 10906  0 17:12 pts/1    00:00:00 /usr/local/mysql/bin/mysqld --ba
 - unix sock： 监听在sock文件上/tmp/mysql.sock  /var/lib/mysql/mysql.sock 仅支持本地通信
   - server：localhost ,127.0.0.1 自动选择unix sock
 
-### 3.1.6.安全初始化
+### 1.1.7.安全初始化
 
 **命令行互交式客户端程序mysql**
   - -uUSERNAME  默认root
@@ -450,7 +408,7 @@ MariaDB [mysql]> select User,Host,Password From user;
 3 rows in set (0.00 sec)
 ```
 
-### 3.1.7.命令分类
+### 1.1.8.命令分类
 
 - 客户端命令：本地执行**
   - mysql>  help
@@ -462,7 +420,5 @@ MariaDB [mysql]> select User,Host,Password From user;
   - help create database;
 
  
-
-
 
 
