@@ -1,6 +1,8 @@
 ---
-title: "Layout: Author Sidebar Disabled"
+title: "页面配置文档：布局-关闭作者侧边栏"
 excerpt: "A post to test disabling author sidebar."
+categories:
+  - Layout
 author_profile: false
 ---
 

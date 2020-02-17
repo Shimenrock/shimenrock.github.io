@@ -1,5 +1,5 @@
 ---
-title:  "Highly Available IP（HAIP）"
+title:  "11gR2 RAC 新特性之Highly Available IP（HAIP）"
 published: true
 categories: oracle
 permalink: oracle-haip.html

@@ -20,8 +20,8 @@ foo:
 
 # main links
 main:
-  - title: "About me"
-    url: https://www.linkedin.com/in/yan-bai-73324b181/
+  #- title: "About me"
+  #  url: https://www.linkedin.com/in/yan-bai-73324b181/
   - title: "Categories"
     url: /categories/
   - title: "DBA"
@@ -32,8 +32,8 @@ main:
     url: /elk/study_notes/
   - title: "Invest"
     url: /invest/study_notes/
-  - title: "Theme Docs"
-    url: /docs/quick-start-guide/
+  #- title: "Theme Docs"
+  #  url: /docs/quick-start-guide/
 
 # elk links
 elk:

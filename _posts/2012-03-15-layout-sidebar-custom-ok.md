@@ -1,7 +1,8 @@
 ---
-title: "布局: 自定义侧边栏"
+title: "页面配置文档：布局-侧边栏自定义"
 excerpt: "A post with custom sidebar content."
 author_profile: false
+categories: Layout
 sidebar:
   - title: "Title"
     image: http://placehold.it/350x250

@@ -1,8 +1,8 @@
 ---
-title: "Layout: Code Excerpt (Generated)"
+title: "页面配置文档：布局-生成代码摘录"
 categories:
   - Layout
-  - Uncategorized
+  - code
 tags:
   - content
   - excerpt

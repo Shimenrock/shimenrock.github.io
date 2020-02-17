@@ -1,5 +1,5 @@
 ---
-title: "Auto restart Weblogic Managed Server"
+title: "如何通过定时脚本自动重启weblogic节点"
 published: true
 categories: weblogic
 permalink: how-to-auto-restart-weblogic.html
@@ -7,6 +7,8 @@ summary: "如何通过定时脚本自动重启weblogic节点"
 tags: [atom]
 toc: true
 ---
+
+**如下节点：**
 
 - Admin Server http://192.168.0.10:9001/console
 - Managed Server-1 http://192.168.0.10:8011
@@ -74,7 +76,3 @@ Starting server server-1 ...........................
 Server with name server-1 started successfully
 Disconnected from weblogic server: Server_AdminServer
 ```
-## WebLogic 脚本工具
-http://edocs.weblogicfans.net/wls/docs92/config_scripting/index.html
-## WLST 命令和变量参考
-http://edocs.weblogicfans.net/wls/docs92/config_scripting/reference.html

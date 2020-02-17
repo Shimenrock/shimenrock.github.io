@@ -10,7 +10,7 @@ toc: true
 ---
 <!--马哥22课笔记，日期：2月2日-->
 <!--马哥23课笔记，日期：2月5日-->
-# 1.关系型数据库
+# 一、关系型数据库
 
 **关系模型：二维关系 row,column**
 
@@ -31,6 +31,43 @@ Relational RDBMS:
 - PostgreSQL:pgsql --> EnterpriseDB
 - Oracle
 - MSSQL
+
+# 二、MYSQL体系结构
+
+必须组件：MySQL服务器、客户机程序、MySQL非客户机程序
+
+**1.客户机程序**
+  - mysql
+  - mysqldump
+  - mysql workbench
+    - 建模
+    - 执行查询
+    - 执行管理任务
+
+**Mysql服务器(mysqld)**
+- 连接层
+  - TCP/IP
+  - UNIX套接字
+  - 共享内存
+  - 命名管道
+- SQL层
+  1. 解析器
+  2. 授权
+  3. 优化器
+  4. 查询执行
+  5. 查询高速缓存
+  6. 查询日志记录
+- 存储层
+  
+
+
+https://mp.weixin.qq.com/s/JagUeisj_JHMIO2NZ6AWWg
+
+
+
+
+
+
 
 # 2.Mariadb
 

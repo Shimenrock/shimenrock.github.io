@@ -1,12 +1,11 @@
 ---
-title: "布局: 配置标头视频"
+title: "页面配置文档：布局-配置标头视频"
 header:
   video:
     id: XsxDH4HcOWA
     provider: youtube
 categories:
   - Layout
-  - Uncategorized
 tags:
   - video
   - layout

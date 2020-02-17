@@ -1,6 +1,8 @@
 
 本地运行
     bundle exec jekyll serve
+    bundle exec jekyll serve --drafts
+    bundle exec jekyll serve --trace
 谷歌分析配置(qiuzhizhu@gmail.com)
 https://analytics.google.com/analytics
 管理>>媒体管理>>创建媒体资源

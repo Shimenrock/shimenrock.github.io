@@ -1,9 +1,8 @@
 ---
-title: "Layout: Excerpt (Defined)"
+title: "页面配置文档：布局-摘录(自定义)"
 excerpt: "This is a user-defined post excerpt. It should be displayed in place of the post content in archive-index pages."
 categories:
   - Layout
-  - Uncategorized
 tags:
   - content
   - excerpt

@@ -1,7 +1,8 @@
 ---
-title: "布局: 侧边栏设置导航清单"
+title: "页面配置文档：布局-侧边栏设置导航清单"
 excerpt: "A post with a sidebar navigation list."
 author_profile: false
+categories: Layout
 sidebar:
   title: "Sample Title"
   nav: sidebar-sample

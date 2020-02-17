@@ -1,6 +1,6 @@
 # Theme Settings
 # theme                    : "minimal-mistakes-jekyll"
-minimal_mistakes_skin    : "air" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "en-US"                # 网页语言
@@ -98,7 +98,7 @@ author:
   name             : "YAN BAI"
   avatar           : "/assets/images/profile.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "System Integration Project Manager."
-  location         : "SHIJIAZHUANG, HEBEI , CHINA"
+  location         : # "SHIJIAZHUANG, HEBEI , CHINA"
   email            : 
   links:
     - label: "Email"
@@ -113,7 +113,7 @@ author:
       # url: "https://twitter.com/"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
-      url: "https://www.facebook.com/qiuzhizhu"
+      # url: "https://www.facebook.com/qiuzhizhu"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Shimenrock"
@@ -122,6 +122,9 @@ author:
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/baiyan2012"
       # url: "https://instagram.com/"
+    - label: "Linkedin"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/yan-bai-73324b181/"
 
 # Site Footer
 footer:
@@ -131,7 +134,7 @@ footer:
       url: "https://twitter.com/YanBai2012"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
-      url: "https://www.facebook.com/qiuzhizhu"
+      # url: "https://www.facebook.com/qiuzhizhu"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Shimenrock"
@@ -146,7 +149,9 @@ footer:
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/baiyan2012"
       # url:
-
+    - label: "Linkedin"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/yan-bai-73324b181/"
 
 # Reading Files
 include:

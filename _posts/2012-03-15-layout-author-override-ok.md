@@ -1,7 +1,9 @@
 ---
-title: "Layout: Author Override"
+title: "页面配置文档：布局-覆盖作者信息"
 author: Billy Rick
 excerpt: "A post to test author overrides using a data file."
+categories:
+  - Layout
 last_modified_at: 2018-09-10T12:32:27-04:00
 ---
 

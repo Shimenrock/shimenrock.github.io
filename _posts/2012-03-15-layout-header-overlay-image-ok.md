@@ -1,5 +1,5 @@
 ---
-title: "布局: 配置标题图片"
+title: "页面配置文档：布局-配置标题图片"
 header:
   overlay_image: /assets/images/unsplash-image-1.jpg
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
@@ -8,7 +8,6 @@ header:
       url: "https://unsplash.com"
 categories:
   - Layout
-  - Uncategorized
 tags:
   - edge case
   - image
@@ -16,15 +15,11 @@ tags:
 last_modified_at: 2018-03-20T16:00:52-04:00
 ---
 
-This post should display a **header with an overlay image**, if the theme supports it.
+在帖子上显示一个覆盖图像的标题
+ 
+## 重叠滤镜
 
-Non-square images can provide some unique styling issues.
-
-This post tests overlay header images.
-
-## Overlay filter
-
-You can use it by specifying the opacity (between 0 and 1) of a black overlay like so:
+可以指定黑色叠加层的不透明度（值在0到1之间）
 
 ![transparent black overlay]({{ "/assets/images/mm-header-overlay-black-filter.jpg" | relative_url }})
 
@@ -39,7 +34,7 @@ header:
       url: "https://unsplash.com"
 ```
 
-Or if you want to do more fancy things, go full rgba:
+或者指定一个RGBA的滤镜层:
 
 ![transparent red overlay]({{ "/assets/images/mm-header-overlay-red-filter.jpg" | relative_url }})
 
@@ -52,4 +47,11 @@ header:
   actions:
     - label: "More Info"
       url: "https://unsplash.com"
+```
+
+或者指定纯色背景：
+```yaml
+title: "Layout: Header Overlay with Background Fill"
+header:
+  overlay_color: "#333"
 ```
