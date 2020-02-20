@@ -76,31 +76,31 @@ k8s:
           url: /k8s/kubernetes-self-test/
        
 # invest links
-invest:
-  - title: "一、如何制定理财计划"
-  - title: "二、理财产品学习笔记"
-    children:
-        - title: "2.1 货币基金"
-          url: /invest/monetary-fund/
-        - title: "2.2 国债逆回购"
-        - title: "2.3 纯债基金"
-          url: /invest/bond-fund/
-        - title: "2.4 指数基金"
-          url: /invest/index-fund/
-        - title: "2.5 大数据指数基金"
-          url: /invest/big-data-index-fund/
-        - title: "2.6 ETF基金"
-          url: /invest/etf-fund/
-        - title: "2.7 LOF基金"
-          url: /invest/lof-fund/
-        - title: "2.8 行业指数"
-          url: /invest/industry-index/ 
-        - title: "2.9 基金定投"
-          url: /invest/fund-fixed-investment/
-  - title: "三、股票投资学习笔记"
-    children:
-        - title: "3.1 股票投资"
-          url: /invest/stock-investemt/
+# invest:
+#   - title: "一、如何制定理财计划"
+#   - title: "二、理财产品学习笔记"
+#     children:
+#         - title: "2.1 货币基金"
+#           url: /invest/monetary-fund/
+#         - title: "2.2 国债逆回购"
+#         - title: "2.3 纯债基金"
+#           url: /invest/bond-fund/
+#         - title: "2.4 指数基金"
+#           url: /invest/index-fund/
+#         - title: "2.5 大数据指数基金"
+#           url: /invest/big-data-index-fund/
+#         - title: "2.6 ETF基金"
+#           url: /invest/etf-fund/
+#         - title: "2.7 LOF基金"
+#           url: /invest/lof-fund/
+#         - title: "2.8 行业指数"
+#           url: /invest/industry-index/ 
+#         - title: "2.9 基金定投"
+#           url: /invest/fund-fixed-investment/
+#   - title: "三、股票投资学习笔记"
+#     children:
+#         - title: "3.1 股票投资"
+#           url: /invest/stock-investemt/
 
 # dba links
 dba:

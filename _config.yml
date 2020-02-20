@@ -366,12 +366,10 @@ defaults:
       type: invest
     values:
       layout: single
-      read_time: false
-      author_profile: false
+      read_time: true
+      author_profile: true
       share: false
       comments: false
-      sidebar:
-        nav: "invest"
   # _recipes
   - scope:
       path: ""
