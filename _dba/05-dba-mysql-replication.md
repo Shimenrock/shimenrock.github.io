@@ -583,3 +583,69 @@ https://v.youku.com/v_show/id_XMzQ4MjY4NzA0NA==.html?spm=a2hzp.8253869.0.0
 https://v.youku.com/v_show/id_XMzQ4MjU4NDA2MA==.html?spm=a2hzp.8253869.0.0
 
 https://www.cnblogs.com/clsn/p/8150036.html
+
+主主复制
+  互为主从：
+    1. 数据不一致：因此，慎用；
+    2. 自动增长id：
+          配置一个节点使用奇数id
+          auto_increment_offset=1
+          auto_increment_increment=2
+          另一个节点使用偶数id
+          auto_increment_offset=2
+          auto_increment_increment=2
+
+
+  配置步骤：
+    1. 各节点使用一个唯一server_id;
+    2. 都启动binary log 和relay log;
+    3. 创建拥有复制权限的用户账户；
+    4. 定义自动增长id字段的数值范围为奇偶；
+    5. 均把对方指定为主节点，并启动复制线程；
+
+半同步复制
+
+
+/usr/lib64/mysql/plugin/semisync_master.so  
+/usr/lib64/mysql/plugin/semisync_slave.so
+
+主
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+symbolic-links=0
+log-bin=master-bin
+server-id=1
+innodb_file_per_table=ON
+skip_name_resolve=ON
+
+[mysqld_safe]
+log-error=/var/log/mariadb/mariadb.log
+pid-file=/var/run/mariadb/mariadb.pid
+
+!includedir /etc/my.cnf.d
+
+GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO 'repluser'@'172.16.%.%' IDENTIFIED BY 'replpass';
+FLUSH PRIVILEGEDS;
+查看position
+show master status; 目的不复制创建用户之前语句
+
+从
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+symbolic-links=0
+relay_log=relay-log
+server-id=5
+innodb_file_per_table=ON
+skip_name_resolve=ON
+
+[mysqld_safe]
+log-error=/var/log/mariadb/mariadb.log
+pid-file=/var/run/mariadb/mariadb.pid
+
+!includedir /etc/my.cnf.d
+
+CHANGE MASTER TO MASTER_HOST='192.168.11.220', MASTER_USER='repluser', MASTER_PASSWORD='replpass', MASTER_LOG_FILE='master-bin.000003', MASTER_LOG_POS=633;'
+
+52分钟
