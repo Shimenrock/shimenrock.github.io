@@ -23,3 +23,7 @@ toc: true
 ## [2.MYSQL 基础概念](/dba/mysql-concept/)
 ### [2.1.锁](/dba/mysql-lock/)
 ### [2.2.索引](/dba/mysql-index/)
+### [redolog和binlog](/dba/mysql-redolog-binlog/)
+
+mysql测试库 https://github.com/datacharmer/test_db
+mysql复制例子 https://github.com/datacharmer/mysql-replication-samples
