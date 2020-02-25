@@ -1,12 +1,11 @@
 ---
-title: "Layout: Reading Time, Comments, Social Sharing Links, and Related Posts Disabled"
+title: "页面配置文档：布局-关闭Reading Time, Comments, Social Sharing Links, and Related Posts"
 read_time: false
 comments: false
 share: false
 related: false
 categories:
   - Layout
-  - Uncategorized
 tags:
   - related posts
   - social

@@ -1,11 +1,19 @@
 ---
-title: "Layout: Post with Nested Table of Contents"
+title: "页面配置文档：布局-通过发布助手，增加右侧大纲表格"
 tags:
   - table of contents
-toc: true
+categories:
+  - Layout
+  - Table
 ---
 
-Tests table of contents with multiple levels to verify indentation is readible.
+Tests table of contents with multiple levels to verify indentation is readible via helper include (deprecated).
+
+```
+{% raw %}{% include toc %}{% endraw %}
+```
+
+{% include toc %}
 
 # Enim laboris id ea elit elit deserunt
 
