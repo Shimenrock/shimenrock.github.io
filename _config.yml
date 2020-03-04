@@ -370,8 +370,8 @@ defaults:
       author_profile: false
       share: false
       comments: true
-      sidebar:
-        nav: "invest"
+  #    sidebar:
+  #      nav: "invest"
   # _recipes
   - scope:
       path: ""

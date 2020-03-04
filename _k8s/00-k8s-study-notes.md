@@ -28,3 +28,5 @@ toc: true
 
 
 ## Part6 [Kubernetes Certified Administrator Self Test](/k8s/kubernetes-self-test/)
+
+[Implement Node and Pod Affinity/Anti-Affinity in Kubernetes: A Practical Example](/k8s/kubernetes-affinity-example/)
