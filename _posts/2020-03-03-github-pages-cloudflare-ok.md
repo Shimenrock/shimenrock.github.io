@@ -10,6 +10,8 @@ GitHub Page托管的都是静态HTML文件，不存在动态内容。
 
 # 1.域名配置
 
+官网：https://www.cloudflare.com/
+
 配置自定义nameservers
 
 - ERIC.NS.CLOUDFLARE.COM
