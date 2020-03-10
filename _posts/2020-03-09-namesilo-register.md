@@ -39,7 +39,7 @@ tags:
 - 是否打开隐私保护：WHOIS Privacy 
 - 注册年限:自己确定自己要买几年的 
 
-输入NameSilo优惠码：“shimenrock”，一个订单只能使用一个，一个账户只能使用1次，输入验证码后，记得一定要Submit，看一下总的价格是不是少了$1。都确定完以后，就点击CONTINUE。
+输入NameSilo优惠码：“PXQE1DOLL”，一个订单只能使用一个，一个账户只能使用1次，输入验证码后，记得一定要Submit，看一下总的价格是不是少了$1。都确定完以后，就点击CONTINUE。
 
 4.填入注册信息
 
@@ -61,4 +61,5 @@ tags:
 
 
 
-[![foo](http://www.namesilo.com/affiliate/banner_gen.php?aid=9391a36br&bid=57)](http://www.namesilo.com/?rid=9391a36br)
+[![foo](http://www.namesilo.com/affiliate/banner_gen.php?aid=5591089le&bid=57)](http://www.namesilo.com/?rid=5591089le)
+
