@@ -22,16 +22,20 @@ foo:
 main:
   #- title: "About me"
   #  url: https://www.linkedin.com/in/yan-bai-73324b181/
-  - title: "Categories"
-    url: /categories/
-  - title: "DBA"
-    url: /dba/study_notes/
-  - title: "K8S notes"
-    url: /k8s/study_notes/
-  - title: "ELK notes"
-    url: /elk/study_notes/
-  - title: "Invest"
-    url: /invest/study_notes/
+  - title: "Home"
+    url: /  
+  - title: "Collections" 
+    url: /categories/     
+  - title: "Notes" 
+    url: /page-a/ 
+  #- title: "DBA"
+  #  url: /dba/study_notes/
+  #- title: "K8S notes"
+  #  url: /k8s/study_notes/
+  #- title: "ELK notes"
+  #  url: /elk/study_notes/
+  #- title: "Invest"
+  #  url: /invest/study_notes/
   #- title: "Theme Docs"
   #  url: /docs/quick-start-guide/
 

@@ -1,9 +1,8 @@
 ---
-title: "Layout: Related Posts Enabled"
+title: "布局: 显示相关帖子"
 related: true
 categories:
   - Layout
-  - Uncategorized
 tags:
   - related posts
   - layout

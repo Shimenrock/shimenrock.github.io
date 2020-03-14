@@ -1,12 +1,12 @@
 # Theme Settings
 # theme                    : "minimal-mistakes-jekyll"
-minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "en-US"                # 网页语言
 title                    : "Shimenrock's Blog"    # 网站标题
 title_separator          : "-"
-subtitle                 : # site tagline that appears below site title in masthead
+subtitle                 : ""    # site tagline that appears below site title in masthead
 name                     : "Shimenrock"           # 作者
 description              : "Shimenrock's Blog about learning finance, invest, oracle, mysql, kubernetes, elasticsearch."
 url                      : "https://Shimenrock.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"

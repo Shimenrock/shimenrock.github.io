@@ -1,9 +1,8 @@
 ---
-title: "Layout: Related Posts Disabled"
+title: "布局: 不显示相关帖子"
 related: false
 categories:
   - Layout
-  - Uncategorized
 tags:
   - related posts
   - layout
