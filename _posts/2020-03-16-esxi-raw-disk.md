@@ -3,7 +3,6 @@ title: "esxi虚拟机增加裸硬盘"
 published: true
 related: true
 header:
-  image: /assets/images/2020-03-16-wmware.jpg
   teaser: /assets/images/2020-03-16-wmware.jpg
 categories: 
   - esxi
