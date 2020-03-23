@@ -9,7 +9,7 @@ title_separator          : "-"
 subtitle                 : ""    # site tagline that appears below site title in masthead
 name                     : "Shimenrock"           # 作者
 description              : "Shimenrock's Blog about learning finance, invest, oracle, mysql, kubernetes, elasticsearch."
-url                      : "https://Shimenrock.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : "https://www.shimenrock.com/" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "Shimenrock/shimenrock.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : "/assets/images/fallback-teaser-500x300.png" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
@@ -95,7 +95,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "YAN BAI"
+  name             : # "YAN BAI"
   avatar           : "/assets/images/profile.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "System Integration Project Manager."
   location         : # "SHIJIAZHUANG, HEBEI , CHINA"
@@ -109,7 +109,7 @@ author:
       # url: "https://https://shimenrock.github.io/"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/YanBai2012"
+      # url: "https://twitter.com/YanBai2012"
       # url: "https://twitter.com/"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
@@ -131,7 +131,7 @@ footer:
   links:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/YanBai2012"
+      # url: "https://twitter.com/YanBai2012"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       # url: "https://www.facebook.com/qiuzhizhu"

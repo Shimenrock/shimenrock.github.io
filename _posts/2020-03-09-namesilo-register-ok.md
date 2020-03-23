@@ -7,8 +7,10 @@ tags:
   - domain
 ---
 
+Namesilo是国外最便宜的域名注册商。
+
 <div class="notice">
-  <p>Namesilo是国外最便宜的域名注册商。.com域名8.89美元/年（包含ICANN认证费），续费价格不变，同时还送终身的域名隐私保护WhoisGuard。</p>
+  <p>Namesilo是国外最便宜的域名注册商。“.com”域名8.89美元/年（包含ICANN认证费），续费价格不变，同时还送终身的域名隐私保护WhoisGuard。</p>
   <ul>
     <li>1.	没有隐藏费用，续订费用不会增加。</li>
     <li>2.	终身免费的WHOIS Guard。</li>
