@@ -24,7 +24,7 @@ tags:
   </p>
 </div>
 
-评论：19.3.0.0.0 这个版本的安装方式的修改，真是一股扑面而来的印度编程风，安装介质的目录就是ORACLE_BASE，如果你把介质放到了tmp目录，安装过程不注意的话，数据库软件就安装到了tmp目录，真是莫名其妙。
+评论：19.3.0.0.0 这个版本的安装方式，真是一股扑面而来的印度编程风，安装介质的目录就是ORACLE_BASE，如果你把介质放到了tmp目录，安装过程不注意的话，数据库软件就安装到了tmp目录，真是莫名其妙。
 
 ### 1 Oracle Database Installation Checklist
 
@@ -94,10 +94,12 @@ enabled=0
 // 这里在https://centos.pkgs.org 搜索下载后安装
 #  rpm -ivh compat-lib*
 ```
-下载： 
-[compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm](//assets/down/compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm)
+下载：   
+[compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm](https://github.com/Shimenrock/shimenrock.github.io/blob/master/assets/down/compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm?raw=true)
 
-[compat-libcap1-1.10-7.el7.x86_64.rpm](//assets/down/compat-libcap1-1.10-7.el7.x86_64.rpm)
+[compat-libcap1-1.10-7.el7.x86_64.rpm](https://github.com/Shimenrock/shimenrock.github.io/blob/master/assets/down/compat-libcap1-1.10-7.el7.x86_64.rpm?raw=true)
+
+
 
 #### 4.2 Confirming Host Name Resolution
 
@@ -320,7 +322,7 @@ As a root user, execute the following script(s):
     2. /u01/app/oracle/product/19.0.0/db_1/root.sh
 ```
 
-### 创建数据库
+#### 创建数据库
 
 图形创建
 
@@ -346,7 +348,7 @@ dbca -silent -createDatabase -templateName General_Purpose.dbc \
 -memoryPercentage 40
 ```
 
-### 创建监听
+#### 创建监听
 
 图形创建
 
@@ -359,4 +361,65 @@ netca
 ```
 netca -silent -responseFile /u01/app/oracle/product/19.0.0/db_1/assistants/netca/netca.rsp
 ```
+
+#### 配置自启动
+
+<div class="notice">
+  <p>Centos7以后/etc/rc.local已经没有执行权限，因为这个文件是为了兼容性的问题而添加的，建议创建自己的systemd服务。</p>
+</div>
+
+```
+vi /etc/oratab
+orcl:/u01/app/oracle/product/19.0.0/db_1:Y
+```
+```
+vi /usr/bin/ora_auto_start.sh
+
+#! /bin/bash 
+#  script  For oracle19c.service
+/u01/app/oracle/product/19.0.0/db_1/bin/lsnrctl start
+/u01/app/oracle/product/19.0.0/db_1/bin/dbstart /u01/app/oracle/product/19.0.0/db_1 
+
+chmod +x /usr/bin/ora_auto_start.sh
+```
+```
+vi /etc/systemd/system/oracle19c.service
+
+[Unit]
+Description=Oracle19c
+After=syslog.target network.target
+[Service]
+LimitMEMLOCK=infinity
+LimitNOFILE=65535
+Type=oneshot
+RemainAfterExit=yes
+User=oracle
+Environment="ORACLE_HOME=/u01/app/oracle/product/19.0.0/db_1"
+ExecStart=/usr/bin/ora_auto_start.sh
+[Install]
+WantedBy=multi-user.target
+```
+```
+systemctl enable oracle19c
+
+reboot
+
+systemctl status oracle19c
+```
+
+#### 生产系统配置
+
+> * 密码有效期限制
+```   
+ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+```
+> * 密码区分大小写
+```
+alter system set sec_case_sensitive_logon = false;
+```
+> * 密码错误10次自动锁定
+```
+ALTER PROFILE DEFAULT LIMIT FAILED_LOGIN_ATTEMPTS UNLIMITED;
+```
+
 
