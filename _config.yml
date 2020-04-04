@@ -1,6 +1,6 @@
 # Theme Settings
 # theme                    : "minimal-mistakes-jekyll"
-minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "en-US"                # 网页语言
@@ -8,10 +8,10 @@ title                    : "Shimenrock's Blog"    # 网站标题
 title_separator          : "-"
 subtitle                 : ""    # site tagline that appears below site title in masthead
 name                     : "Shimenrock"           # 作者
-description              : "Shimenrock's Blog about learning finance, invest, oracle, mysql, kubernetes, elasticsearch."
-url                      : "https://www.shimenrock.com/" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+description              : "Shimenrock's Blog about learning finance, invest, oracle, go, mysql, kubernetes, elasticsearch."
+url                      : "https://www.shimenrock.com/" # the base hostname & protocol for your site e.g.  
 baseurl                  : # the subpath of your site, e.g. "/blog"
-repository               : "Shimenrock/shimenrock.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+repository               : "Shimenrock/shimenrock.github.io" # GitHub username/repo-name e.g.  
 teaser                   : "/assets/images/fallback-teaser-500x300.png" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
@@ -236,6 +236,9 @@ collections:
   portfolio:
     output: true
     permalink: /:collection/:path/
+  go:
+    output: true
+    permalink: /:collection/:path/
 
 # Sass/SCSS
 sass:
@@ -410,3 +413,13 @@ defaults:
       comments: false
       sidebar:
         nav: "dba"
+  # _ go
+  - scope:
+      path: ""
+      type: go
+    values:
+      layout: single
+      read_time: true 
+      author_profile: false
+      share: false 
+      comments: false 
