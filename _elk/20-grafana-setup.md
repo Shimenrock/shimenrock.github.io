@@ -16,6 +16,7 @@ toc_sticky: true
 > * 文档：https://grafana.com/docs/
 > * 数据源：https://grafana.com/docs/grafana/latest/features/datasources/
 > * 下载：https://grafana.com/docs/grafana/latest/
+> * GitHub: https://github.com/grafana/grafana
 
 ## 2.安装
 ```

@@ -17,6 +17,8 @@ Go语言核心36讲
 
 <img src="{{ site.url }}{{ site.baseurl }}/assets/images/2020-03-30-gopath.png" alt="">
 
+[https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/preface.md](https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/preface.md)
+
 <div class="notice">
   <b>Go语言基础知识</b><br />
   1. Go语言规范<br />
@@ -49,6 +51,7 @@ Go语言核心36讲
 </div>
 
 课件： https://github.com/hyper0x/Golang_Puzzlers
+
 
 ### 安装
 
