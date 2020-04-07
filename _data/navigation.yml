@@ -26,6 +26,8 @@ main:
     url: /  
   - title: "Collections" 
     url: /categories/     
+  - title: "DBA Script"
+    url: /tags/
   - title: "Notes" 
     url: /page-a/ 
   #- title: "DBA"

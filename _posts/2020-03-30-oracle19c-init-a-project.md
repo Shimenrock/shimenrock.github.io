@@ -8,8 +8,6 @@ toc: true
 toc_sticky: true
 categories: 
   - oracle
-tags: 
-  - oracle
 ---  
 
 ## 19c下表空间管理

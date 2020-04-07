@@ -6,8 +6,6 @@ header:
   teaser: /assets/images/2020-03-16-wmware.jpg
 categories: 
   - esxi
-tags: 
-  - esxi
 ---
 <!-- https://kb.vmware.com/s/article/1017530?lang=zh_CN#q=%E8%A3%B8  -->
 

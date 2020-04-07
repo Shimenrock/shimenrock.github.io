@@ -6,9 +6,6 @@ header:
     provider: youtube
 categories:
   - Layout
-tags:
-  - video
-  - layout
 ---
 
 This post should display a **header with a responsive video**, if the theme supports it.

@@ -8,8 +8,6 @@ toc: true
 toc_sticky: true
 categories: 
   - oracle
-tags: 
-  - oracle
 ---  
 
 ### Install JDK

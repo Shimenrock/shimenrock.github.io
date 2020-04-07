@@ -6,11 +6,6 @@ share: false
 related: false
 categories:
   - Layout
-tags:
-  - related posts
-  - social
-  - comments
-  - layout
 ---
 
 This post has reading time, comments, social sharing links, and related posts disabled.

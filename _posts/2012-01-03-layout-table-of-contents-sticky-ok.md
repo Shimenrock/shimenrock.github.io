@@ -1,7 +1,5 @@
 ---
 title: "页面配置文档：布局-右侧大纲表格粘帖效果"
-tags:
-  - table of contents
 toc: true
 toc_sticky: true
 categories:

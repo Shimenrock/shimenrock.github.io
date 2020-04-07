@@ -3,8 +3,6 @@ title: "页面配置文档：布局-现实右侧大纲表格"
 header:
   image: assets/images/unsplash-image-9.jpg
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
-tags:
-  - table of contents
 toc: true
 toc_label: "Unique Title"
 toc_icon: "heart"

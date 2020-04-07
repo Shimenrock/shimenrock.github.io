@@ -3,8 +3,6 @@ title: "通过CloudFlare为GitHub Page提供安全加速访问"
 published: true
 categories: 
   - github
-tags: 
-  - github
 ---
 GitHub Page托管的都是静态HTML文件，不存在动态内容。
 

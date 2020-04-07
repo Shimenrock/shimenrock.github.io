@@ -3,8 +3,6 @@ title: "布局: Read Time Enabled"
 categories:
   - Layout
 read_time: true
-tags:
-  - read time
 ---
 
 This post has reading time enabled. The estimated time that it takes to read this post should show if also enabled in `_config.yml` with `read_time: true`.

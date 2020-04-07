@@ -5,10 +5,6 @@ header:
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
 categories:
   - Layout
-tags: 
-  - sample post
-  - readability
-  - test
 ---
 
 This is a sample post with a large feature image[^1] up top and tons of text. 

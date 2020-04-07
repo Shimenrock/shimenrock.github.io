@@ -3,8 +3,6 @@ title: "如何用Docker部署Jekyll Blog"
 published: true
 categories: 
   - jekyll
-tags: 
-  - Docker
 ---
 
 官方网站 https://github.com/envygeeks/jekyll-docker

@@ -1,7 +1,5 @@
 ---
 title: "页面配置文档：布局-通过发布助手，增加右侧大纲表格"
-tags:
-  - table of contents
 categories:
   - Layout
   - Table

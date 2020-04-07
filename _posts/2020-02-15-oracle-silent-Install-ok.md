@@ -4,7 +4,6 @@ published: true
 categories: oracle
 permalink: oracle-silent-install.html
 summary: "Oracle数据库静默安装"
-tags: [oracle]
 ---
 <!-- 
 **翻译转载** [https://oracle-base.com/articles/misc/oui-silent-installations](https://oracle-base.com/articles/misc/oui-silent-installations)

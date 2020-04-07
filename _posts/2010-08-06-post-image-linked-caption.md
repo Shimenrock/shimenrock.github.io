@@ -2,9 +2,6 @@
 title: "发布: 图片 (超链接标题)"
 categories:
   - Post Formats
-tags:
-  - image
-  - Post Formats
 ---
 
 {% capture fig_img %}

@@ -2,9 +2,6 @@
 title: "发布: 图像 (标题)"
 categories:
   - Post Formats
-tags:
-  - image
-  - Post Formats
 ---
 
 {% capture fig_img %}

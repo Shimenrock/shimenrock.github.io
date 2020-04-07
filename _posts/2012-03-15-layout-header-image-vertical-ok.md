@@ -5,11 +5,6 @@ header:
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
 categories:
   - Layout
-tags:
-  - edge case
-  - featured image
-  - image
-  - layout
 ---
 
 This post should display a **header image**, if the theme supports it.

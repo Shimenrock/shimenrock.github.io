@@ -6,8 +6,6 @@ header:
   teaser: /assets/images/2020-03-15-ipscan-mac.png
 categories: 
   - security
-tags: 
-  - security
 ---
 
 # Scan TOOL

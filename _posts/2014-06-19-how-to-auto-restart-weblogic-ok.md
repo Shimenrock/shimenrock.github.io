@@ -4,7 +4,6 @@ published: true
 categories: weblogic
 permalink: how-to-auto-restart-weblogic.html
 summary: "如何通过定时脚本自动重启weblogic节点"
-tags: [atom]
 toc: true
 ---
 

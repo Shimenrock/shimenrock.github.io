@@ -4,7 +4,6 @@ published: true
 categories: atom
 permalink: how-to-use-atom.html
 summary: "如何安装使用Atom"
-tags: [atom]
 toc: true
 ---
 

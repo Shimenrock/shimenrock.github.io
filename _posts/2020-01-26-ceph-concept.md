@@ -4,7 +4,6 @@ published: false
 categories: ceph
 permalink: ceph-concept.html
 summary: "CEPH 架构"
-tags: [ceph]
 ---
 
 **Software Defined Storage , SDS 软件定义存储**

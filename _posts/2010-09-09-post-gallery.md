@@ -2,10 +2,6 @@
 title: "发布: 画廊"
 categories:
   - Post Formats
-tags:
-  - gallery
-  - Post Formats
-  - tiled
 gallery:
   - url: /assets/images/unsplash-gallery-image-1.jpg
     image_path: /assets/images/unsplash-gallery-image-1-th.jpg

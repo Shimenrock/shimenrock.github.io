@@ -8,10 +8,6 @@ header:
       url: "https://unsplash.com"
 categories:
   - Layout
-tags:
-  - edge case
-  - image
-  - layout
 last_modified_at: 2018-03-20T16:00:52-04:00
 ---
 

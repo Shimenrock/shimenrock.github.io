@@ -3,8 +3,6 @@ title: "布局: Read Time Disabled"
 categories:
   - Layout
 read_time: false
-tags:
-  - read time
 ---
 
 This post has reading time disabled. The estimated time that it takes to read this post should not be showing if `read_time: false` is set in `_config.yml` or in this post's YAML Front Matter.

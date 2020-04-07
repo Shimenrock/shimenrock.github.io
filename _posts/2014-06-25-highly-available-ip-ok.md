@@ -4,7 +4,6 @@ published: true
 categories: oracle
 permalink: oracle-haip.html
 summary: "11gR2 RAC 新特性之Highly Available IP（HAIP）"
-tags: [haip]
 toc: true
 ---
 

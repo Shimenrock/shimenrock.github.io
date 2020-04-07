@@ -3,8 +3,6 @@ title: "Namesilo 2020优惠码及域名购买教程"
 published: true
 categories: 
   - domain
-tags: 
-  - domain
 ---
 
 Namesilo是国外最便宜的域名注册商。

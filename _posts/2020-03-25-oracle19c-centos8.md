@@ -8,8 +8,6 @@ toc: true
 toc_sticky: true
 categories: 
   - oracle
-tags: 
-  - oracle
 ---  
 
 继上一个11.2.0.4稳定版后，19c是12c产品的稳定版本了，可以用于生产系统了。

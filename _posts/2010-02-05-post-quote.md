@@ -2,9 +2,6 @@
 title: "发布: 引用"
 categories:
   - Post Formats
-tags:
-  - Post Formats
-  - quote
 ---
 
 > Only one thing is impossible for God: To find any sense in any copyright law on the planet.

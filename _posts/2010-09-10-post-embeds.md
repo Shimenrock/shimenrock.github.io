@@ -2,11 +2,6 @@
 title: "发布: 嵌入媒体"
 categories:
   - Post Formats
-tags:
-  - content
-  - embeds
-  - media
-  - twitter
 ---
 
 # Post: Twitter Embed
