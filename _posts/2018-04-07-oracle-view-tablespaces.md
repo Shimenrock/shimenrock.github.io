@@ -2,11 +2,18 @@
 title:  "view tablespaces"
 published: true
 summary: "查看表空间"
+read_time: false
+comments: false
+related: false
+author_profile: false
 categories: 
   - dbascript
 tags: 
   - tablespaces
+  - oracle
 ---
+
+# 查看ORACLE数据库里的表空间
 
 ```
 lsnrctl status     //查看Service name
