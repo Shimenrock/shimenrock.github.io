@@ -47,6 +47,7 @@ Go语言核心36讲
     <li>Go程序诊断 https://golang.google.cn/doc/diagnostics.html</li>
     <li>Go by Example https://gobyexample.com/</li>
     <li>Awesome Go https://github.com/avelino/awesome-go</li>
+    <li>Go 语言优秀资源整理 https://shockerli.net/post/go-awesome/</li>
   </ul> 
 </div>
 
