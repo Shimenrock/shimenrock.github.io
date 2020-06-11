@@ -239,6 +239,9 @@ collections:
   go:
     output: true
     permalink: /:collection/:path/
+  pentesting:
+    output: true
+    permalink: /:collection/:path/
 
 # Sass/SCSS
 sass:
@@ -413,10 +416,20 @@ defaults:
       comments: false
       sidebar:
         nav: "dba"
-  # _ go
+  # _go
   - scope:
       path: ""
       type: go
+    values:
+      layout: single
+      read_time: true 
+      author_profile: false
+      share: false 
+      comments: false 
+  # _pentesting
+  - scope:
+      path: ""
+      type: pentesting 
     values:
       layout: single
       read_time: true 

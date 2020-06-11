@@ -15,3 +15,5 @@ date: 2011-06-23T18:38:52+00:00
 ### [Invest Study Notes](/invest/study_notes/)
 
 ### [Go Study Notes](/go/study_notes/)
+
+### [Pentesting Notes](/Pentesting/study_notes/)
