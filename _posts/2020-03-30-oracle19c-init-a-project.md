@@ -1,6 +1,6 @@
 ---
 title: "Oracle Database 19c Initialize a project"
-published: true
+published: false
 related: true
 header:
   teaser: /assets/images/unsplash-image-3.jpg
