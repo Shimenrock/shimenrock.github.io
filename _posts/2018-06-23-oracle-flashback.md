@@ -201,6 +201,7 @@ select  re_id,
         from RESTORE_TIME order by re_id desc;
 
 ```
+## 闪回表
 ```
 SET LINESIZE 200
 SET PAGESIZE 999
@@ -209,4 +210,60 @@ COL BANNER FORMAT A100
 COL BANNER_FULL FORMAT A100
 COL BANNER_LEGACY FORMAT A100
 select * from v$version;
+
+select  re_id,
+        re_date,
+        re_scn,
+        re_start,
+        re_note  
+        from RESTORE_TIME order by re_id desc;
+
+
+delete from RESTORE_TIME where re_id=2;
+select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from dual;
+SELECT current_scn, TO_CHAR(SYSTIMESTAMP, 'YYYY-MM-DD HH24:MI:SS') FROM v$database;
+commit;
+
+2020-07-14 05:08:34
+CURRENT_SCN TO_CHAR(SYSTIMESTAM
+----------- -------------------
+    2503844 2020-07-14 05:09:26
+
+-- sysdate-10/1440 十分钟之前
+select * from RESTORE_TIME as of timestamp sysdate-10/1440;
+
+select * from RESTORE_TIME as of timestamp to_timestamp('2020-07-14 05:08:34','yyyy-mm-dd hh24:mi:ss');
+
+select * from RESTORE_TIME as of scn 2500000;
+
+
+flashback table RESTORE_TIME to timestamp to_timestamp('2020-07-14 05:08:34','yyyy-mm-dd hh24:mi:ss');
+
+select row_movement from dba_tables where table_name='RESTORE_TIME' and owner='TEST';
+
+alter table RESTORE_TIME enable row movement;
+ 
+select * from RESTORE_TIME;
+alter table RESTORE_TIME disable row movement;
+
 ```
+
+## 闪回drop
+```
+ drop table RESTORE_TIME;
+
+ show recyclebin;
+ 
+SQL> show recyclebin;
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME
+---------------- ------------------------------ ------------ -------------------
+RESTORE_TIME     BIN$qmRXDSK2DFPgU9QLqMC3yg==$0 TABLE        2020-07-14:05:22:02
+
+ flashback table RESTORE_TIME to before drop;
+
+ select * from RESTORE_TIME;
+
+flashback table t to before drop rename to tt;
+```
+
+https://www.cnblogs.com/rangle/p/8039282.html
