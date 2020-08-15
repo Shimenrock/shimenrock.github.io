@@ -40,28 +40,28 @@ func anotherFunction(f func() string) string {
 	return f()
 }
 
-func main() {
-	fmt.Println("4.1:调用函数")
-	fmt.Printf("%v\n", isEven(123))
-	fmt.Printf("%v\n", isEven(322))
-	fmt.Println("4.2:函数返回多个值")
-	quantity, prize := getPrize()
-	fmt.Printf("You won %v %v\n", quantity, prize)
-	fmt.Println("4.3:使用不定参数函数")
-	result := sumNumbers(1, 2, 3, 4)
-	fmt.Printf("The result is %v\n", result)
-	fmt.Println("4.4:具名返回值")
-	fmt.Println(sayHi())
-	fmt.Println("4.5:递归函数")
-	feedMe(1, 0)
-	fmt.Println("4.6:将函数作为参数传递")
-	fn := func() {
-		fmt.Println("function called")
-	}
-	fn()
-	fmt.Println("4.7:函数作为值")
-	fn1 := func() string {
-		return "function called"
-	}
-	fmt.Println(anotherFunction(fn1))
-}
+// func main() {
+// 	fmt.Println("4.1:调用函数")
+// 	fmt.Printf("%v\n", isEven(123))
+// 	fmt.Printf("%v\n", isEven(322))
+// 	fmt.Println("4.2:函数返回多个值")
+// 	quantity, prize := getPrize()
+// 	fmt.Printf("You won %v %v\n", quantity, prize)
+// 	fmt.Println("4.3:使用不定参数函数")
+// 	result := sumNumbers(1, 2, 3, 4)
+// 	fmt.Printf("The result is %v\n", result)
+// 	fmt.Println("4.4:具名返回值")
+// 	fmt.Println(sayHi())
+// 	fmt.Println("4.5:递归函数")
+// 	feedMe(1, 0)
+// 	fmt.Println("4.6:将函数作为参数传递")
+// 	fn := func() {
+// 		fmt.Println("function called")
+// 	}
+// 	fn()
+// 	fmt.Println("4.7:函数作为值")
+// 	fn1 := func() string {
+// 		return "function called"
+// 	}
+// 	fmt.Println(anotherFunction(fn1))
+// }

@@ -385,14 +385,14 @@ Completed: alter database backup controlfile to trace
 ```
 
 ### 6. 创建新的对象，用于后续完全恢复时进行稽核
-
+```
 SQL> create table scott.test22 (id number);
 SQL> alter system switch logfile;
 SQL> shutdown immediate;
-
+```
 
 ### 7. 创建 IMAGE COPY 数据库所需的参数文件(参数文件中的db_name不能修改，audit_file_dest与control_files路径要进行调整)
-
+```
 [oracle@sqlaudit ~]$ cd $ORACLE_HOME/dbs
 [oracle@sqlaudit dbs]$ cp orapwsrcdb orapwsrcdbnew
 [oracle@sqlaudit dbs]$ strings spfilesrcdb.ora > initsrcdbnew.ora
@@ -400,22 +400,23 @@ SQL> shutdown immediate;
 *.audit_file_dest='/oracle/app/oracle/admin/srcdbnew/adump'
 *.control_files='/oradata/srcdb_img/control01.ctl','/oradata/srcdb_img/control02.ctl'
 [oracle@sqlaudit dbs]$ mkdir -p /oracle/app/oracle/admin/srcdbnew/adump
+```
 ### 8. 启动数据库实例
-
+```
 [oracle@sqlaudit dbs]$ export ORACLE_SID=srcdbnew
 [oracle@sqlaudit dbs]$ sqlplus / as sysdba
 SQL> startup nomount;
-
+```
 
 ### 9. 复制在线日志文件到新目录用于完全恢复
-
+```
 [oracle@sqlaudit archive]$ cp /oracle/app/oracle/oradata/srcdb/redo01.log /oradata/srcdb_img/redo01.log
 [oracle@sqlaudit archive]$ cp /oracle/app/oracle/oradata/srcdb/redo02.log /oradata/srcdb_img/redo02.log
 [oracle@sqlaudit archive]$ cp /oracle/app/oracle/oradata/srcdb/redo03.log /oradata/srcdb_img/redo03.log
-
+```
 
 ### 10. 重建控制文件
-
+```
 CREATE CONTROLFILE REUSE DATABASE "SRCDB" NORESETLOGS
     MAXLOGFILES 16
     MAXLOGMEMBERS 3
@@ -435,10 +436,10 @@ DATAFILE
 CHARACTER SET WE8MSWIN1252
 ;
 SQL> SELECT NAME FROM V$DATAFILE;
-
+```
 
 ### 11. 源库检查检查需要注册的日志文件
-
+```
 [oracle@sqlaudit dbs]$ export ORACLE_SID=srcdb
 SQL> startup mount;
 RMAN> list backup of archivelog all;
@@ -451,18 +452,19 @@ BS Key  Size      Device Type Elapsed Time Completion Time
   Thrd Seq    Low SCN    Low Time            Next SCN  Next Time
   ---- ------- ---------- ------------------- ---------- ---------
   1    11      969636    2018-01-31 07:48:41 969648    2018-01-31 07:48:46
-
+```
 
 ### 12. 新库注册源库的日志文件
-
+```
 SQL> ALTER DATABASE REGISTER LOGFILE '/oracle/archive/1_11_961988430.dbf';
 SQL> ALTER DATABASE REGISTER LOGFILE '/oracle/archive/1_12_961988430.dbf';
 SQL> ALTER DATABASE REGISTER LOGFILE '/oracle/archive/1_13_961988430.dbf';
 SQL> ALTER DATABASE REGISTER LOGFILE '/oracle/archive/1_14_961988430.dbf';
 SQL> RECOVER DATABASE;
 SQL> ALTER DATABASE OPEN;
-
+```
 
 ### 13. 创建新的临时文件
-
+```
 SQL> ALTER TABLESPACE TEMP ADD TEMPFILE '/oradata/srcdb_img/temp01.dbf' SIZE 100M AUTOEXTEND OFF;
+```
