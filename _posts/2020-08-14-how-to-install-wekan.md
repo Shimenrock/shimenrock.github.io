@@ -10,10 +10,8 @@ categories:
   - wekan
 ---  
 
-<!--
-
--->
 官网：https://wekan.github.io/
+
 GITHUB:https://github.com/wekan/wekan
 
 ## 1.root 登陆
