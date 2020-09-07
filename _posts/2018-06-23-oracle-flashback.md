@@ -5,6 +5,8 @@ summary: "Flashback table"
 read_time: false
 comments: false
 related: false
+toc: true
+toc_sticky: true
 author_profile: false
 categories: 
   - dbascript
@@ -13,7 +15,9 @@ tags:
   - oracle
 ---
 
-``` 登陆数据库
+## 1.登陆数据库
+
+``` 
 lsnrctl status     //查看Service name
 
 sqlplus sys/oracle@cdb1 as sysdba    //登录cdb
@@ -24,7 +28,10 @@ select name,pdb from v$services;
 
 alter session set container=pdb_easyee;
 ```
-``` 开启闪回
+
+## 2.开启闪回
+
+``` 
 //查看是否开启闪回
 
 SQL> select flashback_on from v$database;
@@ -117,7 +124,10 @@ FLASHBACK_ON
 ------------------
 YES
 ```
-``` 创建测试表
+
+## 3.创建测试表
+
+``` 
 alter session set container=pdb_easyee;
 
 -- 创建用户 
@@ -201,7 +211,9 @@ select  re_id,
         from RESTORE_TIME order by re_id desc;
 
 ```
-## 闪回表
+
+## 4.闪回表
+
 ```
 SET LINESIZE 200
 SET PAGESIZE 999
@@ -248,7 +260,8 @@ alter table RESTORE_TIME disable row movement;
 
 ```
 
-## 闪回drop
+## 5. 闪回drop
+
 ```
  drop table RESTORE_TIME;
 
@@ -265,5 +278,144 @@ RESTORE_TIME     BIN$qmRXDSK2DFPgU9QLqMC3yg==$0 TABLE        2020-07-14:05:22:02
 
 flashback table t to before drop rename to tt;
 ```
+## 6. 闪回注意事项
 
-https://www.cnblogs.com/rangle/p/8039282.html
+- 数据库闪回需要在mounted下进行，并且open时需要使用resetlogs
+- 闪回DROP只能用于非系统表空间和本地管理的表空间，外键约束无法恢复，对方覆盖、重命名需注意
+- 表DROP，对应的物化视图会被彻底删除，物化视图不会存放在recyclebin里
+- 闪回表，如果在做过dml，然后进行了表结构修改、truncate等DDL操作，新增/删除结构无法做闪回
+- 闪回归档，必须在assm管理tablespace和undo auto管理下进行
+- 注意闪回区管理，防止磁盘爆满，闪回区空间不足等
+- 主库做库的闪回，会影响备库，需要重新同步
+- snapshot standby 不支持最高保护模式
+ 
+## 6.相关查询
+
+V$FLASHBACK_DATABASE_LOG  ##查看数据库可闪回的时间点/SCN等信息
+
+V$flashback_database_stat ##查看闪回日志空间记录信息
+
+1. 查看数据库状态
+
+```
+select NAME,OPEN_MODE ,DATABASE_ROLE,CURRENT_SCN,FLASHBACK_ON from v$database;
+```
+
+2. 获取当前数据库的系统时间和SCN
+
+```
+select to_char(systimestamp,'yyyy-mm-dd HH24:MI:SS') as sysdt , dbms_flashback.get_system_change_number scn from dual;
+```
+
+3. 查看数据库可恢复的时间点
+
+```
+select * from V$FLASHBACK_DATABASE_LOG;
+```
+
+4. 查看闪回日志空间情况
+
+```
+select * from V$flashback_database_stat;
+```
+
+5. SCN和timestamp装换关系查询
+
+```
+select scn,to_char(time_dp,'yyyy-mm-dd hh24:mi:ss')from sys.smon_scn_time;
+```
+
+6. 查看闪回restore_point
+
+```
+select scn, STORAGE_SIZE ,to_char(time,'yyyy-mm-dd hh24:mi:ss') time,NAME from v$restore_point;
+```
+
+## 7.通过时间戳查询历史数据
+
+```
+set time on
+
+alter session set nls_date_format='yyyy-mm-dd hh24:mi:ss';
+
+select sysdate from dual;
+
+22:49:28 SQL> create table demo(id primary key, text) as select rownum,to_char(rownum,'099999999') from xmltable('1 to 5');
+
+Table created.
+
+22:49:36 SQL>  select * from demo;
+
+        ID TEXT
+---------- ----------
+         1  000000001
+         2  000000002
+         3  000000003
+         4  000000004
+         5  000000005
+```
+### update the PK
+
+```
+22:49:53 SQL> update demo set id=id+1;
+
+5 rows updated.
+
+22:50:09 SQL> commit;
+
+SQL> select /*+ gather_plan_statistics */ * from demo where id=3;
+
+        ID TEXT
+---------- ----------
+         3  000000002
+```
+
+### QUERY as of before the update
+
+```
+22:58:36 SQL> select /*+ gather_plan_statistics */ * from demo as of timestamp (timestamp '2020-09-06 22:49:50') where id=3;
+
+        ID TEXT
+---------- ----------
+         3  000000003        
+
+
+select * from demo as of timestamp to_timestamp('2020-09-06 22:49:50','yyyy-mm-dd hh24:mi:ss');
+
+set linesize 300
+select plan_table_output from dbms_xplan.display_cursor(format=>'allstats last +cost ');
+```
+
+### can still use the index acces to the old value
+
+```
+23:04:10 SQL> select plan_table_output from dbms_xplan.display_cursor(format=>'allstats last +cost ');
+
+PLAN_TABLE_OUTPUT
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL_ID  bxx2nh2frvvtw, child number 2
+-------------------------------------
+select /*+ gather_plan_statistics */ * from demo as of timestamp
+(timestamp '2020-09-06 22:49:50') where id=3
+
+Plan hash value: 776694569
+
+------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                   | Name        | Starts | E-Rows | Cost (%CPU)| A-Rows |   A-Time   | Buffers |
+------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |             |      1 |        |     1 (100)|      1 |00:00:00.01 |       6 |
+
+PLAN_TABLE_OUTPUT
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   1 |  TABLE ACCESS BY INDEX ROWID| DEMO        |      1 |      1 |     1   (0)|      1 |00:00:00.01 |       6 |
+|*  2 |   INDEX UNIQUE SCAN         | SYS_C007534 |      1 |      1 |     0   (0)|      1 |00:00:00.01 |       3 |
+------------------------------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("ID"=3)
+
+
+20 rows selected.
+```
