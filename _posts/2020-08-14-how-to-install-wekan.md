@@ -170,3 +170,28 @@ http://192.168.11.225:5000/
 先注册一个新用户
 
 用新用户登陆
+
+## 7. 升级
+
+```
+# cat /etc/redhat-release 
+CentOS Linux release 7.6.1810 (Core) 
+# snap list
+Name   Version      Rev   Tracking       Publisher   Notes
+core   16-2.45.3.1  9804  latest/stable  canonical✓  core
+wekan  4.23         956   latest/stable  xet7        -
+# snap find wekan
+Name             Version            Publisher     Notes  Summary
+wekan            4.40               xet7          -      Open-Source kanban
+wekan-ondra      4.40-60-gb6b634f   xet7          -      Open-Source kanban
+wekan-gantt-gpl  4.40-5-gf6a814f    xet7          -      Open-Source GPLv2 kanban
+wekan-liuzh      2.01-1-g59b8b97    liuzh         -      The open-source kanban
+wekan-ag         3.56-577-g75fad5a  gameendman99  -      The open-source kanban
+# snap refresh wekan
+wekan 4.40 from Lauri Ojansivu (xet7) refreshed
+# snap list
+Name   Version      Rev   Tracking       Publisher   Notes
+core   16-2.45.3.1  9804  latest/stable  canonical✓  core
+wekan  4.40         1021  latest/stable  xet7        -
+```
+
