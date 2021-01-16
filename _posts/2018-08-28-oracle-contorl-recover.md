@@ -12,83 +12,235 @@ tags:
   - rman
   - oracle
 ---
+
+```
+sqlplus sys/oracle@cdb1 as sysdba    //登录cdb
+
+SQL> archive log list;
+Database log mode              Archive Mode
+Automatic archival             Enabled
+Archive destination            USE_DB_RECOVERY_FILE_DEST
+Oldest online log sequence     23
+Next log sequence to archive   25
+Current log sequence           25
+```
+rman target sys/oracle@cdb1 
+
+RMAN> show all;
+
+using target database control file instead of recovery catalog
+RMAN configuration parameters for database with db_unique_name CDB1 are:
+CONFIGURE RETENTION POLICY TO REDUNDANCY 1; # default
+CONFIGURE BACKUP OPTIMIZATION OFF; # default
+CONFIGURE DEFAULT DEVICE TYPE TO DISK; # default
+CONFIGURE CONTROLFILE AUTOBACKUP ON; # default   控制文件自动备份
+CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '%F'; # default
+CONFIGURE DEVICE TYPE DISK PARALLELISM 1 BACKUP TYPE TO BACKUPSET; # default
+CONFIGURE DATAFILE BACKUP COPIES FOR DEVICE TYPE DISK TO 1; # default
+CONFIGURE ARCHIVELOG BACKUP COPIES FOR DEVICE TYPE DISK TO 1; # default
+CONFIGURE MAXSETSIZE TO UNLIMITED; # default
+CONFIGURE ENCRYPTION FOR DATABASE OFF; # default
+CONFIGURE ENCRYPTION ALGORITHM 'AES128'; # default
+CONFIGURE COMPRESSION ALGORITHM 'BASIC' AS OF RELEASE 'DEFAULT' OPTIMIZE FOR LOAD TRUE ; # default
+CONFIGURE RMAN OUTPUT TO KEEP FOR 7 DAYS; # default
+CONFIGURE ARCHIVELOG DELETION POLICY TO NONE; # default
+CONFIGURE SNAPSHOT CONTROLFILE NAME TO '/u01/app/oracle/product/19.0.0/db_1/dbs/snapcf_cdb1.f'; # default
+
+RMAN> run
+2> {allocate channel c1 type disk;
+3> sql 'alter system archive log current';
+4> backup database format '/backup/full_%d_%T_%s_%p';
+5> backup current controlfile format '/backup/ctl_%d_%T_%s_%p';
+6> release channel c1;
+7> }
+
+allocated channel: c1
+channel c1: SID=291 device type=DISK
+
+sql statement: alter system archive log current
+
+Starting backup at 2020-11-04 07:06:21
+channel c1: starting full datafile backup set
+channel c1: specifying datafile(s) in backup set
+input datafile file number=00013 name=/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf
+input datafile file number=00014 name=/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf
+input datafile file number=00011 name=/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf
+input datafile file number=00009 name=/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf
+input datafile file number=00010 name=/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf
+input datafile file number=00015 name=/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf
+input datafile file number=00012 name=/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf
+channel c1: starting piece 1 at 2020-11-04 07:06:21
+channel c1: finished piece 1 at 2020-11-04 07:07:16
+piece handle=/backup/full_CDB1_20201104_22_1 tag=TAG20201104T070621 comment=NONE
+channel c1: backup set complete, elapsed time: 00:00:55
+channel c1: starting full datafile backup set
+channel c1: specifying datafile(s) in backup set
+input datafile file number=00001 name=/u01/app/oracle/oradata/CDB1/system01.dbf
+input datafile file number=00003 name=/u01/app/oracle/oradata/CDB1/sysaux01.dbf
+input datafile file number=00004 name=/u01/app/oracle/oradata/CDB1/undotbs01.dbf
+input datafile file number=00007 name=/u01/app/oracle/oradata/CDB1/users01.dbf
+channel c1: starting piece 1 at 2020-11-04 07:07:16
+channel c1: finished piece 1 at 2020-11-04 07:08:21
+piece handle=/backup/full_CDB1_20201104_23_1 tag=TAG20201104T070621 comment=NONE
+channel c1: backup set complete, elapsed time: 00:01:05
+channel c1: starting full datafile backup set
+channel c1: specifying datafile(s) in backup set
+input datafile file number=00006 name=/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf
+input datafile file number=00005 name=/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf
+input datafile file number=00008 name=/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf
+channel c1: starting piece 1 at 2020-11-04 07:08:21
+channel c1: finished piece 1 at 2020-11-04 07:08:46
+piece handle=/backup/full_CDB1_20201104_24_1 tag=TAG20201104T070621 comment=NONE
+channel c1: backup set complete, elapsed time: 00:00:25
+Finished backup at 2020-11-04 07:08:46
+
+Starting backup at 2020-11-04 07:08:47
+channel c1: starting full datafile backup set
+channel c1: specifying datafile(s) in backup set
+including current control file in backup set
+channel c1: starting piece 1 at 2020-11-04 07:08:48
+channel c1: finished piece 1 at 2020-11-04 07:08:49
+piece handle=/backup/ctl_CDB1_20201104_25_1 tag=TAG20201104T070847 comment=NONE
+channel c1: backup set complete, elapsed time: 00:00:01
+Finished backup at 2020-11-04 07:08:49
+
+Starting Control File and SPFILE Autobackup at 2020-11-04 07:08:49
+piece handle=/u01/app/oracle/flashback/CDB1/autobackup/2020_11_04/o1_mf_s_1055574529_ht56gksc_.bkp comment=NONE
+Finished Control File and SPFILE Autobackup at 2020-11-04 07:08:50
+
+released channel: c1
+
+run
+{allocate channel c1 type disk;
+sql 'alter system archive log current';
+backup archivelog all format '/backup/arch_%d_%T_%s_%p' delete input;
+backup current controlfile format '/backup/ctl_%d_%T_%s_%p';
+release channel c1;
+}
+
+RMAN> list backup of controlfile; 
+
+BS Key  Type LV Size       Device Type Elapsed Time Completion Time    
+------- ---- -- ---------- ----------- ------------ -------------------
+14      Full    17.95M     DISK        00:00:00     2020-11-04 07:12:25
+        BP Key: 14   Status: AVAILABLE  Compressed: NO  Tag: TAG20201104T071225
+        Piece Name: /u01/app/oracle/flashback/CDB1/autobackup/2020_11_04/o1_mf_s_1055574745_ht56o9kc_.bkp
+  Control File Included: Ckp SCN: 2701595      Ckp time: 2020-11-04 07:12:25
+```
+
+
 ## 1.记录控制文件、数据文件头的scn
 ```
-SYS@enmo>select checkpoint_change# from v$database;
+系统检查点
+SQL> select checkpoint_change# from v$database;
 
 CHECKPOINT_CHANGE#
 ------------------
-          18502624
+           2701487
 
-SYS@enmo>select name,checkpoint_change# from v$datafile;
+set linesize 300
+set pagesize 99
+col NAME format a60
+select name,checkpoint_change# from v$datafile;
+NAME                                                         CHECKPOINT_CHANGE#
+------------------------------------------------------------ ------------------
+/u01/app/oracle/oradata/CDB1/system01.dbf                               2701487
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf                               2701487
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf                              2701487
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf                                2701487
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                      1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf                    2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf                    2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf                   2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf                     2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf            2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf                      2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf                 2701487
 
-NAME                                               CHECKPOINT_CHANGE#
--------------------------------------------------- ------------------
-/u01/app/dbfile/enmo/system01.dbf                            18502624
-/u01/app/dbfile/enmo/sysaux01.dbf                            18502624
-/u01/app/dbfile/enmo/undotbs1.dbf                            18502624
-/u01/app/dbfile/enmo/users01.dbf                             18502624
-/u01/app/dbfile/enmo/chang01.dbf                             18502624
-/u01/app/dbfile/enmo/lob_data01.dbf                          18502624
-/u01/app/dbfile/enmo/oggdata.dbf                             18502624
-/u01/app/dbfile/reccat.dbf                                   18502624
+14 rows selected.
 
-8 rows selected.
+select name,checkpoint_change# from v$datafile_header;
 
-SYS@enmo>select name,checkpoint_change# from v$datafile_header;
+NAME                                                         CHECKPOINT_CHANGE#
+------------------------------------------------------------ ------------------
+/u01/app/oracle/oradata/CDB1/system01.dbf                               2701487
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf                               2701487
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf                              2701487
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf                                2701487
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                      1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf                    2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf                    2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf                   2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf                     2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf            2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf                      2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf                 2701487
 
-NAME                                               CHECKPOINT_CHANGE#
--------------------------------------------------- ------------------
-/u01/app/dbfile/enmo/system01.dbf                            18502624
-/u01/app/dbfile/enmo/sysaux01.dbf                            18502624
-/u01/app/dbfile/enmo/undotbs1.dbf                            18502624
-/u01/app/dbfile/enmo/users01.dbf                             18502624
-/u01/app/dbfile/enmo/chang01.dbf                             18502624
-/u01/app/dbfile/enmo/lob_data01.dbf                          18502624
-/u01/app/dbfile/enmo/oggdata.dbf                             18502624
-/u01/app/dbfile/reccat.dbf                                   18502624
-
-8 rows selected.
+14 rows selected.
 ```
 
 --正常运行时last_change#的值就是空
 ```
-SYS@enmo>select name,last_change# from v$datafile;
+SQL> select name,last_change# from v$datafile;
 
-NAME                                               LAST_CHANGE#
--------------------------------------------------- ------------
-/u01/app/dbfile/enmo/system01.dbf
-/u01/app/dbfile/enmo/sysaux01.dbf
-/u01/app/dbfile/enmo/undotbs1.dbf
-/u01/app/dbfile/enmo/users01.dbf
-/u01/app/dbfile/enmo/chang01.dbf
-/u01/app/dbfile/enmo/lob_data01.dbf
-/u01/app/dbfile/enmo/oggdata.dbf
-/u01/app/dbfile/reccat.dbf
+NAME                                                         LAST_CHANGE#
+------------------------------------------------------------ ------------
+/u01/app/oracle/oradata/CDB1/system01.dbf
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                 1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                 1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf
 
-8 rows selected.
+14 rows selected.
 ```
 ## 2.关闭数据库并移动控制文件
 ```
-SYS@enmo>shutdown immediate;
+SQL>shutdown immediate;
 Database closed.
 Database dismounted.
 ORACLE instance shut down.
 
-[oracle@ora:enmo enmo]$mv control01.ctl control01.ctl.bak
-[oracle@ora:enmo enmo]$mv control02.ctl control02.ctl.bak
+oracle@ORACLE-212$pwd
+/u01/app/oracle/oradata/CDB1
+oracle@ORACLE-212$mv control01.ctl control01.ctl.bak
+oracle@ORACLE-212$mv control02.ctl control02.ctl.bak
 ```
 ## 3.开启数据库到nomount;
 ```
-SYS@enmo>startup nomount;
+oracle@ORACLE-212$export ORACLE_SID=cdb1
+oracle@ORACLE-212$echo $ORACLE_SID      
+cdb1
+oracle@ORACLE-212$sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Wed Nov 4 07:36:57 2020
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> startup nomount;
 ORACLE instance started.
 
-Total System Global Area 1048576000 bytes
-Fixed Size                  8628640 bytes
-Variable Size             796919392 bytes
-Database Buffers          234881024 bytes
-Redo Buffers                8146944 bytes
-SYS@enmo>select status from v$instance;
+Total System Global Area 2466250360 bytes
+Fixed Size                  9137784 bytes
+Variable Size             536870912 bytes
+Database Buffers         1912602624 bytes
+Redo Buffers                7639040 bytes
+SQL>select status from v$instance;
 
 STATUS
 ------------------------------------
@@ -96,121 +248,151 @@ STARTED
 ```
 ## 4.使用rman恢复历史备份的控制文件
 ```
+oracle@ORACLE-212$export ORACLE_SID=cdb1
+oracle@ORACLE-212$rman target /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Wed Nov 4 07:38:51 2020
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: CDB1 (not mounted)
 RMAN> restore controlfile from autobackup;
 
-Starting restore at 2020-03-13 12:51:11 
-
+Starting restore at 2020-11-04 07:39:05
+using target database control file instead of recovery catalog
 allocated channel: ORA_DISK_1
-channel ORA_DISK_1: SID=10 device type=DISK
+channel ORA_DISK_1: SID=256 device type=DISK
 
-recovery area destination: /u01/app/fra
-database name (or database unique name) used for search: ENMO
-channel ORA_DISK_1: AUTOBACKUP /u01/app/fra/ENMO/autobackup/2020_03_10/o1_mf_s_1034681351_h6g2d7x3_.bkp found in the recovery area
+recovery area destination: /u01/app/oracle/flashback
+database name (or database unique name) used for search: CDB1
+channel ORA_DISK_1: AUTOBACKUP /u01/app/oracle/flashback/CDB1/autobackup/2020_11_04/o1_mf_s_1055574745_ht56o9kc_.bkp found in the recovery area
 AUTOBACKUP search with format "%F" not attempted because DBID was not set
-channel ORA_DISK_1: restoring control file from AUTOBACKUP /u01/app/fra/ENMO/autobackup/2020_03_10/o1_mf_s_1034681351_h6g2d7x3_.bkp
+channel ORA_DISK_1: restoring control file from AUTOBACKUP /u01/app/oracle/flashback/CDB1/autobackup/2020_11_04/o1_mf_s_1055574745_ht56o9kc_.bkp
 channel ORA_DISK_1: control file restore from AUTOBACKUP complete
-output file name=/u01/app/dbfile/enmo/control01.ctl
-output file name=/u01/app/dbfile/enmo/control02.ctl
-Finished restore at 2020-03-13 12:51:13 
+output file name=/u01/app/oracle/oradata/CDB1/control01.ctl
+output file name=/u01/app/oracle/oradata/CDB1/control02.ctl
+Finished restore at 2020-11-04 07:39:07
 ```
 ## 5.更新数据库到mount
 ```
-SYS@enmo>alter database mount;
+SQL>alter database mount;
 
 Database altered.
 ```
 ## 6.查看控制文件和数据文件中的scn号
 --可以看到数据文件头中记录的scn(18504054)大于控制文件中记录的scn(18261588)
 ```
-SYS@enmo>set line 999
-SYS@enmo>col name for a50
-SYS@enmo>select status from v$instance;
+set line 999
+col name for a50
+select status from v$instance;
 
 STATUS
 ------------------------------------
 MOUNTED
 
-SYS@enmo>select checkpoint_change# from v$database;
+select checkpoint_change# from v$database;
 
 CHECKPOINT_CHANGE#
 ------------------
-          18261588
+           2701487
 
-SYS@enmo>select name,checkpoint_change# from v$datafile;
+set linesize 300
+set pagesize 99
+col NAME format a60
+select name,checkpoint_change# from v$datafile;
 
-NAME                                               CHECKPOINT_CHANGE#
--------------------------------------------------- ------------------
-/u01/app/dbfile/enmo/system01.dbf                            18261588
-/u01/app/dbfile/enmo/sysaux01.dbf                            18261588
-/u01/app/dbfile/enmo/undotbs1.dbf                            18261588
-/u01/app/dbfile/enmo/users01.dbf                             18261588
-/u01/app/dbfile/enmo/chang01.dbf                             18261588
-/u01/app/dbfile/enmo/lob_data01.dbf                          18261588
-/u01/app/dbfile/enmo/oggdata.dbf                             18261588
-/u01/app/dbfile/reccat.dbf                                   18261588
+NAME                                                         CHECKPOINT_CHANGE#
+------------------------------------------------------------ ------------------
+/u01/app/oracle/oradata/CDB1/system01.dbf                               2701487
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf                               2701487
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf                              2701487
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf                                2701487
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                      1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf                    2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf                    2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf                   2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf                     2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf            2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf                      2701487
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf                 2701487
 
-8 rows selected.
+14 rows selected.
 
-SYS@enmo>select name,checkpoint_change# from v$datafile_header;
+select name,checkpoint_change# from v$datafile_header;
 
-NAME                                               CHECKPOINT_CHANGE#
--------------------------------------------------- ------------------
-/u01/app/dbfile/enmo/system01.dbf                            18504054
-/u01/app/dbfile/enmo/sysaux01.dbf                            18504054
-/u01/app/dbfile/enmo/undotbs1.dbf                            18504054
-/u01/app/dbfile/enmo/users01.dbf                             18504054
-/u01/app/dbfile/enmo/chang01.dbf                             18504054
-/u01/app/dbfile/enmo/lob_data01.dbf                          18504054
-/u01/app/dbfile/enmo/oggdata.dbf                             18504054
-/u01/app/dbfile/reccat.dbf                                   18504054
+NAME                                                         CHECKPOINT_CHANGE#
+------------------------------------------------------------ ------------------
+/u01/app/oracle/oradata/CDB1/system01.dbf                               2702560
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf                               2702560
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf                              2702560
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf                                2702560
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                      1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf                    2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf                    2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf                   2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf                     2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf            2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf                      2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf                 2702455
 
-8 rows selected.
+14 rows selected.
 
-SYS@enmo>select name,last_change# from v$datafile;
+select name,last_change# from v$datafile;
 
-NAME                                               LAST_CHANGE#
--------------------------------------------------- ------------
-/u01/app/dbfile/enmo/system01.dbf
-/u01/app/dbfile/enmo/sysaux01.dbf
-/u01/app/dbfile/enmo/undotbs1.dbf
-/u01/app/dbfile/enmo/users01.dbf
-/u01/app/dbfile/enmo/chang01.dbf
-/u01/app/dbfile/enmo/lob_data01.dbf
-/u01/app/dbfile/enmo/oggdata.dbf
-/u01/app/dbfile/reccat.dbf
+NAME                                                         LAST_CHANGE#
+------------------------------------------------------------ ------------
+/u01/app/oracle/oradata/CDB1/system01.dbf
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf
+/u01/app/oracle/oradata/CDB1/users01.dbf
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf
 
-8 rows selected.
+14 rows selected.
 ```
 ## 7.更新数据库为open
 ```
-SYS@enmo>alter database open;
+>alter database open;
 alter database open
 *
 ERROR at line 1:
 ORA-01589: must use RESETLOGS or NORESETLOGS option for database open
 
-SYS@enmo>alter database open noresetlogs;
+>alter database open noresetlogs;
 alter database open noresetlogs
 *
 ERROR at line 1:
 ORA-01610: recovery using the BACKUP CONTROLFILE option must be done  --恢复备份的控制文件不可以noresetlogs方式开库
 
-SYS@enmo>alter database open resetlogs;
+>alter database open resetlogs;
 alter database open resetlogs
 *
 ERROR at line 1:
 ORA-01152: file 1 was not restored from a sufficiently old backup  --说明使用了一个旧的控制文件与现有的数据文件的scn对不上
-ORA-01110: data file 1: '/u01/app/dbfile/enmo/system01.dbf'
+ORA-01110: data file 1: '/u01/app/oracle/oradata/CDB1/system01.dbf'
 
-SYS@enmo>recover database; 
+>recover database; 
 ORA-00283: recovery session canceled due to errors  
 ORA-01610: recovery using the BACKUP CONTROLFILE option must be done  --直接恢复报错,必须执行使用备份的控制文件进行恢复数据库
 
 
-SYS@enmo>recover database using backup controlfile;
-ORA-00279: change 18282978 generated at 03/10/2020 09:25:09 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_123_1033390448.arc
-ORA-00280: change 18282978 for thread 1 is in sequence #123
+>recover database using backup controlfile;
+ORA-00279: change 2701595 generated at 11/04/2020 07:10:05 needed for thread 1
+ORA-00289: suggestion : /u01/app/oracle/flashback/CDB1/archivelog/2020_11_04/o1_mf_1_28_%u_.arc
+ORA-00280: change 2701595 for thread 1 is in sequence #28
 
 
 Specify log: {<RET>=suggested | filename | AUTO | CANCEL}
@@ -220,289 +402,197 @@ ORA-00289: suggestion : /u01/app/orarch/enmo/1_124_1033390448.arc
 ORA-00280: change 18292695 for thread 1 is in sequence #124
 ORA-00278: log file '/u01/app/orarch/enmo/1_123_1033390448.arc' no longer needed for this recovery
 
-
-ORA-00279: change 18293343 generated at 03/10/2020 13:37:38 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_125_1033390448.arc
-ORA-00280: change 18293343 for thread 1 is in sequence #125
-ORA-00278: log file '/u01/app/orarch/enmo/1_124_1033390448.arc' no longer needed for this recovery
+......
+......
+......
 
 
-ORA-00279: change 18354143 generated at 03/11/2020 09:36:32 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_126_1033390448.arc
-ORA-00280: change 18354143 for thread 1 is in sequence #126
-ORA-00278: log file '/u01/app/orarch/enmo/1_125_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18454671 generated at 03/12/2020 15:35:37 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_127_1033390448.arc
-ORA-00280: change 18454671 for thread 1 is in sequence #127
-ORA-00278: log file '/u01/app/orarch/enmo/1_126_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18460259 generated at 03/12/2020 15:41:41 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_128_1033390448.arc
-ORA-00280: change 18460259 for thread 1 is in sequence #128
-ORA-00278: log file '/u01/app/orarch/enmo/1_127_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18463068 generated at 03/12/2020 15:56:59 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_129_1033390448.arc
-ORA-00280: change 18463068 for thread 1 is in sequence #129
-ORA-00278: log file '/u01/app/orarch/enmo/1_128_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18464597 generated at 03/12/2020 16:03:39 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_130_1033390448.arc
-ORA-00280: change 18464597 for thread 1 is in sequence #130
-ORA-00278: log file '/u01/app/orarch/enmo/1_129_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18465698 generated at 03/12/2020 16:04:21 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_131_1033390448.arc
-ORA-00280: change 18465698 for thread 1 is in sequence #131
-ORA-00278: log file '/u01/app/orarch/enmo/1_130_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18465714 generated at 03/12/2020 16:04:27 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_132_1033390448.arc
-ORA-00280: change 18465714 for thread 1 is in sequence #132
-ORA-00278: log file '/u01/app/orarch/enmo/1_131_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18465757 generated at 03/12/2020 16:04:47 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_133_1033390448.arc
-ORA-00280: change 18465757 for thread 1 is in sequence #133
-ORA-00278: log file '/u01/app/orarch/enmo/1_132_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18467282 generated at 03/12/2020 16:16:58 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_134_1033390448.arc
-ORA-00280: change 18467282 for thread 1 is in sequence #134
-ORA-00278: log file '/u01/app/orarch/enmo/1_133_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18469175 generated at 03/12/2020 16:25:01 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_135_1033390448.arc
-ORA-00280: change 18469175 for thread 1 is in sequence #135
-ORA-00278: log file '/u01/app/orarch/enmo/1_134_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18469629 generated at 03/12/2020 16:28:31 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_136_1033390448.arc
-ORA-00280: change 18469629 for thread 1 is in sequence #136
-ORA-00278: log file '/u01/app/orarch/enmo/1_135_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18469828 generated at 03/12/2020 16:30:07 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_137_1033390448.arc
-ORA-00280: change 18469828 for thread 1 is in sequence #137
-ORA-00278: log file '/u01/app/orarch/enmo/1_136_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18470068 generated at 03/12/2020 16:31:32 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_138_1033390448.arc
-ORA-00280: change 18470068 for thread 1 is in sequence #138
-ORA-00278: log file '/u01/app/orarch/enmo/1_137_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18470071 generated at 03/12/2020 16:33:14 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_139_1033390448.arc
-ORA-00280: change 18470071 for thread 1 is in sequence #139
-ORA-00278: log file '/u01/app/orarch/enmo/1_138_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18470909 generated at 03/12/2020 16:33:18 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_140_1033390448.arc
-ORA-00280: change 18470909 for thread 1 is in sequence #140
-ORA-00278: log file '/u01/app/orarch/enmo/1_139_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18484607 generated at 03/13/2020 09:24:42 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_141_1033390448.arc
-ORA-00280: change 18484607 for thread 1 is in sequence #141
-ORA-00278: log file '/u01/app/orarch/enmo/1_140_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18485561 generated at 03/13/2020 09:29:58 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_142_1033390448.arc
-ORA-00280: change 18485561 for thread 1 is in sequence #142
-ORA-00278: log file '/u01/app/orarch/enmo/1_141_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18502620 generated at 03/13/2020 11:35:04 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_143_1033390448.arc
-ORA-00280: change 18502620 for thread 1 is in sequence #143
-ORA-00278: log file '/u01/app/orarch/enmo/1_142_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18502623 generated at 03/13/2020 12:42:33 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_144_1033390448.arc
-ORA-00280: change 18502623 for thread 1 is in sequence #144
-ORA-00278: log file '/u01/app/orarch/enmo/1_143_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18502793 generated at 03/13/2020 12:42:37 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_145_1033390448.arc
-ORA-00280: change 18502793 for thread 1 is in sequence #145
-ORA-00278: log file '/u01/app/orarch/enmo/1_144_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00279: change 18504054 generated at 03/13/2020 12:45:47 needed for thread 1
-ORA-00289: suggestion : /u01/app/orarch/enmo/1_146_1033390448.arc
-ORA-00280: change 18504054 for thread 1 is in sequence #146
-ORA-00278: log file '/u01/app/orarch/enmo/1_145_1033390448.arc' no longer needed for this recovery
-
-
-ORA-00308: cannot open archived log '/u01/app/orarch/enmo/1_146_1033390448.arc'    --提示需要146日志,但是归档目录没有,手动指定redo日志(具体是redo那个日志不太清楚,分别尝试每个redo)
+ORA-00308: cannot open archived log '/u01/app/oracle/flashback/CDB1/archivelog/2020_11_04/o1_mf_1_28_%u_.arc'    --提示需要28日志,但是归档目录没有,手动指定redo日志(具体是redo那个日志不太清楚,分别尝试每个redo)
 ORA-27037: unable to obtain file status
 Linux-x86_64 Error: 2: No such file or directory
 Additional information: 7==
 
-SYS@enmo>recover database using backup controlfile;
+>recover database using backup controlfile;
 ORA-00279: change 18504054 generated at 03/13/2020 12:45:47 needed for thread 1
 ORA-00289: suggestion : /u01/app/orarch/enmo/1_146_1033390448.arc
 ORA-00280: change 18504054 for thread 1 is in sequence #146
 
-
 Specify log: {<RET>=suggested | filename | AUTO | CANCEL}
-/u01/app/oraredo/enmo/redo04a.rdo
+/u01/app/oracle/oradata/CDB1/redo01.log
 Log applied.
 Media recovery complete.
 ```
 ## 8.再次查看控制文件、数据文件头记录的scn号
 ```
-SYS@enmo>set line 999
-SYS@enmo>col name for a50
-SYS@enmo>select status from v$instance;
+set line 999
+col name for a50
+select status from v$instance;
 
 STATUS
 ------------------------------------
 MOUNTED
 
-SYS@enmo>select checkpoint_change# from v$database;
+>select checkpoint_change# from v$database;
 
 CHECKPOINT_CHANGE#
 ------------------
-          18261588
+           2701487
 
-SYS@enmo>select name,checkpoint_change# from v$datafile;
+set linesize 300
+set pagesize 99
+col NAME format a60
+select name,checkpoint_change# from v$datafile;
 
-NAME                                               CHECKPOINT_CHANGE#
--------------------------------------------------- ------------------
-/u01/app/dbfile/enmo/system01.dbf                            18504055
-/u01/app/dbfile/enmo/sysaux01.dbf                            18504055
-/u01/app/dbfile/enmo/undotbs1.dbf                            18504055
-/u01/app/dbfile/enmo/users01.dbf                             18504055
-/u01/app/dbfile/enmo/chang01.dbf                             18504055
-/u01/app/dbfile/enmo/lob_data01.dbf                          18504055
-/u01/app/dbfile/enmo/oggdata.dbf                             18504055
-/u01/app/dbfile/reccat.dbf                                   18504055
+NAME                                                         CHECKPOINT_CHANGE#
+------------------------------------------------------------ ------------------
+/u01/app/oracle/oradata/CDB1/system01.dbf                               2701487
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf                               2701487
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf                              2701487
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf                                2701487
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                      1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf                    2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf                    2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf                   2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf                     2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf            2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf                      2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf                 2702455
 
-8 rows selected.
+14 rows selected.
 
-SYS@enmo>select name,checkpoint_change# from v$datafile_header;
+>select name,checkpoint_change# from v$datafile_header;
 
-NAME                                               CHECKPOINT_CHANGE#
--------------------------------------------------- ------------------
-/u01/app/dbfile/enmo/system01.dbf                            18504055
-/u01/app/dbfile/enmo/sysaux01.dbf                            18504055
-/u01/app/dbfile/enmo/undotbs1.dbf                            18504055
-/u01/app/dbfile/enmo/users01.dbf                             18504055
-/u01/app/dbfile/enmo/chang01.dbf                             18504055
-/u01/app/dbfile/enmo/lob_data01.dbf                          18504055
-/u01/app/dbfile/enmo/oggdata.dbf                             18504055
-/u01/app/dbfile/reccat.dbf                                   18504055
+NAME                                                         CHECKPOINT_CHANGE#
+------------------------------------------------------------ ------------------
+/u01/app/oracle/oradata/CDB1/system01.dbf                               2702560
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf                               2702560
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf                              2702560
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf                                2702560
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                      1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf                    2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf                    2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf                   2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf                     2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf            2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf                      2702455
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf                 2702455
 
-8 rows selected.
-
+14 rows selected.
 SYS@enmo>select name,last_change# from v$datafile;
 
-NAME                                               LAST_CHANGE#
--------------------------------------------------- ------------
-/u01/app/dbfile/enmo/system01.dbf                      18504055
-/u01/app/dbfile/enmo/sysaux01.dbf                      18504055
-/u01/app/dbfile/enmo/undotbs1.dbf                      18504055
-/u01/app/dbfile/enmo/users01.dbf                       18504055
-/u01/app/dbfile/enmo/chang01.dbf                       18504055
-/u01/app/dbfile/enmo/lob_data01.dbf                    18504055
-/u01/app/dbfile/enmo/oggdata.dbf                       18504055
-/u01/app/dbfile/reccat.dbf                             18504055
+NAME                                                         LAST_CHANGE#
+------------------------------------------------------------ ------------
+/u01/app/oracle/oradata/CDB1/system01.dbf                         2702560
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf                         2702560
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf                        2702560
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf
+/u01/app/oracle/oradata/CDB1/users01.dbf                          2702560
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf
 
-8 rows selected.
+14 rows selected.
 ```
 ## 9.使用resetlogs方式开启数据库
 ```
-SYS@enmo>alter database open resetlogs;
+>alter database open resetlogs;
 
 Database altered.
-SYS@enmo>set line 999
-SYS@enmo>col name for a50
-SYS@enmo>select status from v$instance;
+
+>select status from v$instance;
 
 STATUS
 ------------
 OPEN
 
-SYS@enmo>select checkpoint_change# from v$database;
+>select checkpoint_change# from v$database;
 
 CHECKPOINT_CHANGE#
 ------------------
-          18504060
+           2703620
 
-SYS@enmo>select name,checkpoint_change# from v$datafile;
+>select name,checkpoint_change# from v$datafile;
 
-NAME                                               CHECKPOINT_CHANGE#
--------------------------------------------------- ------------------
-/u01/app/dbfile/enmo/system01.dbf                            18504060
-/u01/app/dbfile/enmo/sysaux01.dbf                            18504060
-/u01/app/dbfile/enmo/undotbs1.dbf                            18504060
-/u01/app/dbfile/enmo/users01.dbf                             18504060
-/u01/app/dbfile/enmo/chang01.dbf                             18504060
-/u01/app/dbfile/enmo/lob_data01.dbf                          18504060
-/u01/app/dbfile/enmo/oggdata.dbf                             18504060
-/u01/app/dbfile/reccat.dbf                                   18504060
+NAME                                                         CHECKPOINT_CHANGE#
+------------------------------------------------------------ ------------------
+/u01/app/oracle/oradata/CDB1/system01.dbf                               2703620
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf                               2703620
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf                              2703620
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf                                2703620
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                      1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf                    2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf                    2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf                   2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf                     2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf            2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf                      2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf                 2703835
 
-8 rows selected.
+14 rows selected.
 
-SYS@enmo>select name,checkpoint_change# from v$datafile_header;
+>select name,checkpoint_change# from v$datafile_header;
 
-NAME                                               CHECKPOINT_CHANGE#
--------------------------------------------------- ------------------
-/u01/app/dbfile/enmo/system01.dbf                            18504060
-/u01/app/dbfile/enmo/sysaux01.dbf                            18504060
-/u01/app/dbfile/enmo/undotbs1.dbf                            18504060
-/u01/app/dbfile/enmo/users01.dbf                             18504060
-/u01/app/dbfile/enmo/chang01.dbf                             18504060
-/u01/app/dbfile/enmo/lob_data01.dbf                          18504060
-/u01/app/dbfile/enmo/oggdata.dbf                             18504060
-/u01/app/dbfile/reccat.dbf                                   18504060
+NAME                                                         CHECKPOINT_CHANGE#
+------------------------------------------------------------ ------------------
+/u01/app/oracle/oradata/CDB1/system01.dbf                               2703620
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf                               2703620
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf                              2703620
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                       1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf                                2703620
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                      1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf                    2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf                    2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf                   2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf                     2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf            2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf                      2703835
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf                 2703835
 
-8 rows selected.
+14 rows selected.
 
-SYS@enmo>select name,last_change# from v$datafile;
+>select name,last_change# from v$datafile;
 
-NAME                                               LAST_CHANGE#
--------------------------------------------------- ------------
-/u01/app/dbfile/enmo/system01.dbf
-/u01/app/dbfile/enmo/sysaux01.dbf
-/u01/app/dbfile/enmo/undotbs1.dbf
-/u01/app/dbfile/enmo/users01.dbf
-/u01/app/dbfile/enmo/chang01.dbf
-/u01/app/dbfile/enmo/lob_data01.dbf
-/u01/app/dbfile/enmo/oggdata.dbf
-/u01/app/dbfile/reccat.dbf
+NAME                                                         LAST_CHANGE#
+------------------------------------------------------------ ------------
+/u01/app/oracle/oradata/CDB1/system01.dbf
+/u01/app/oracle/oradata/CDB1/sysaux01.dbf
+/u01/app/oracle/oradata/CDB1/undotbs01.dbf
+/u01/app/oracle/oradata/CDB1/pdbseed/system01.dbf                 1957825
+/u01/app/oracle/oradata/CDB1/pdbseed/sysaux01.dbf                 1957825
+/u01/app/oracle/oradata/CDB1/users01.dbf
+/u01/app/oracle/oradata/CDB1/pdbseed/undotbs01.dbf                1957825
+/u01/app/oracle/oradata/CDB1/pdb_easyee/system01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/sysaux01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/users01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/pdbeasyee_data01.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/bttest.dbf
+/u01/app/oracle/oradata/CDB1/pdb_easyee/undotbs01_2.dbf
 
-8 rows selected.
+14 rows selected.
 ```
 ## 10.查看化身的数据
 ```
 RMAN> list incarnation;
 
-
 List of Database Incarnations
 DB Key  Inc Key DB Name  DB ID            STATUS  Reset SCN  Reset Time
 ------- ------- -------- ---------------- --- ---------- ----------
-2       2       ENMO     850702656        PARENT  6835695    2019-09-20 18:11:28 
-1       1       ENMO     850702656        PARENT  16566762   2020-02-26 12:54:08 
-3       3       ENMO     850702656        CURRENT 18504056   2020-03-13 13:24:09  --从18504056开始新的数据库化身
+1       1       CDB1     1010358776       PARENT  1          2019-04-17 00:55:59
+2       2       CDB1     1010358776       PARENT  1920977    2020-04-02 03:55:38
+3       3       CDB1     1010358776       CURRENT 2702561    2020-11-04 07:56:30  --从2702561开始新的数据库化身
+
 ```
